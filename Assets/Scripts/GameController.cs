@@ -56,7 +56,7 @@ public class GameController : MonoBehaviour
         else if(usedTileList.Count > 0 && usedTileList[usedTileList.Count-1] == tileController)
         {
             Backspace();
-        }
+        } 
 
     }
 
