@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Advertisements;
 using TMPro;
 
 public class GameController : MonoBehaviour
@@ -27,9 +28,40 @@ public class GameController : MonoBehaviour
     
     void Start()
     {
-        LetterBasket.Initialize();
+        InitializeSDKs();
+        InitializeDictionary();
+        InitializeLetterBoard();
         currentWordText.text = "";
 
+    }
+
+    private void InitializeSDKs()
+    {
+        //ads
+        InitializeAdsSDK();
+        
+    }
+
+    private void InitializeAdsSDK()
+    {
+#if UNITY_IOS 
+        string gameId = "3699028";
+#elif UNITY_ANDROID
+        string gameId = "3699029";
+#endif
+        
+        bool testMode = true;
+        Advertisement.Initialize (gameId, testMode);
+    }
+
+    private void InitializeDictionary()
+    {
+        DictionaryController.ReadExternalDictionary();
+    }
+    
+    private void InitializeLetterBoard()
+    {
+        LetterBasket.Initialize();
         //destroy placeholder editor tiles
         foreach (Transform child in tileGroupParent)
         {
@@ -44,7 +76,8 @@ public class GameController : MonoBehaviour
             tile.pressedCallback = OnTilePressed;
         }   
     }
-
+    
+    
     public void OnTilePressed(LetterTileController tileController)
     {
         if (!usedTileList.Contains(tileController))
@@ -67,6 +100,7 @@ public class GameController : MonoBehaviour
 
     private void Backspace()
     {
+
         if (usedTileList.Count > 0)
         {
             int idx = usedTileList.Count-1;
@@ -81,22 +115,58 @@ public class GameController : MonoBehaviour
 
     public void OnSubmitButtonPressed()
     {
-        Submit();
+        bool wordHasBeenUsed = HasWordBeenUsed();
+        bool wordIsInDictionary = IsWordInDictionary(currentWordText.text);
+        bool isValid = !wordHasBeenUsed && wordIsInDictionary;
+        if (isValid)
+        {
+            Submit();
+        } 
+        else
+        {
+            //show rejected feedback
+            ClearTilesAndWord();
+        }
+        
     }
+
+    private bool HasWordBeenUsed()
+    {
+        return false;
+    }
+
+    private bool IsWordInDictionary(string word)
+    {
+        bool exists = DictionaryController.ExistsInDictionary(word);
+        Debug.Log(exists);
+        return exists;
+    }
+
 
     private void Submit()
     {
-        //clear current word
-        currentWordText.text = "";
-        //used tiles -->
-            //roll letter
-            //set available
+        ClearTilesAndWord();        
+    }
+
+    private void ClearTilesAndWord()
+    {
+        ClearTiles();
+        ClearWord();
+    }
+
+    private void ClearTiles()
+    {
         foreach(LetterTileController tile in usedTileList)
         {
             tile.SetTileText(LetterBasket.RollDiceAtIdx(tile.diceIdx));
             tile.SetTileAvailable();
         }
         usedTileList.Clear();
+    }
+
+    private void ClearWord()
+    {
+        currentWordText.text = "";
     }
 
 }
