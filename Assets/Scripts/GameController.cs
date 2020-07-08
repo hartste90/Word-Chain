@@ -3,10 +3,29 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Advertisements;
 using TMPro;
+using DG.Tweening;
 
 public class GameController : MonoBehaviour
 {
-    
+    #region singleton
+    private static GameController instance;
+    public static GameController Instance
+    {
+        get
+        {
+            if (instance == null)
+            {
+                instance = GameObject.FindObjectOfType<GameController>();
+                if (instance == null)
+                {
+                    Debug.LogError("No GameController was found in this scene. Make sure you place one in the scene.");
+                    return instance;
+                }
+            }
+            return instance;
+        }
+    }
+    #endregion
 
 
     /* 
@@ -24,6 +43,7 @@ public class GameController : MonoBehaviour
     public Transform tileGroupParent;
 
 
+    private List<LetterTileController> tileList = new List<LetterTileController>();
     private List<LetterTileController> usedTileList = new List<LetterTileController>();
     
     void Start()
@@ -74,6 +94,7 @@ public class GameController : MonoBehaviour
             tile.diceIdx = i;
             tile.SetTileText(LetterBasket.RollDiceAtIdx(tile.diceIdx));
             tile.pressedCallback = OnTilePressed;
+            tileList.Add(tile);
         }   
     }
     
@@ -162,6 +183,29 @@ public class GameController : MonoBehaviour
             tile.SetTileAvailable();
         }
         usedTileList.Clear();
+    }
+
+    public void OnShuffleButtonPressed()
+    {
+        ShuffleTiles();
+    }
+
+    public void ShuffleTiles()
+    {
+        List<Vector3> positionsList = new List<Vector3>();
+        foreach(LetterTileController tile in tileList)
+        {
+            positionsList.Add(tile.transform.position);
+        }
+        int counter = 0;
+        while(positionsList.Count > 0)
+        {
+            int idx = Random.Range(0, positionsList.Count-1);
+            Vector3 targetPos = positionsList[idx];
+            positionsList.RemoveAt(idx);
+            tileList[counter].transform.DOMove(targetPos, .2f);
+            counter++;
+        }
     }
 
     private void ClearWord()
