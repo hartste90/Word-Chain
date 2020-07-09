@@ -45,7 +45,8 @@ public class GameController : MonoBehaviour
 
     private List<LetterTileController> tileList = new List<LetterTileController>();
     private List<LetterTileController> usedTileList = new List<LetterTileController>();
-    
+    private List<Vector3> positionsList;
+
     void Start()
     {
         InitializeSDKs();
@@ -97,6 +98,15 @@ public class GameController : MonoBehaviour
             tileList.Add(tile);
         }   
     }
+
+    private void StorePositions()
+    {
+        positionsList = new List<Vector3>();
+        foreach(LetterTileController tile in tileList)
+        {
+            positionsList.Add(tile.transform.position);
+        }
+    }
     
     
     public void OnTilePressed(LetterTileController tileController)
@@ -122,15 +132,24 @@ public class GameController : MonoBehaviour
     private void Backspace()
     {
 
-        if (usedTileList.Count > 0)
+        if (usedTileList.Count > 0 && currentWordText.text.Length > 0)
         {
             int idx = usedTileList.Count-1;
             LetterTileController lastTile = usedTileList[idx];
             string lastLetterContribution = lastTile.letterText.text;
             currentWordText.text = currentWordText.text.Substring(0, currentWordText.text.Length - lastLetterContribution.Length);
             
-            lastTile.SetTileAvailable();
+            lastTile.RevertUsedTile();
             usedTileList.Remove(lastTile);
+        }
+    }
+
+    public void OnClearAllButtonPressed()
+    {
+        int count = usedTileList.Count;
+        for(int i = 0; i < count; i++)
+        {
+            Backspace();
         }
     }
 
@@ -146,7 +165,8 @@ public class GameController : MonoBehaviour
         else
         {
             //show rejected feedback
-            ClearTilesAndWord();
+            ClearWord();
+            RejectUsedTiles();
         }
         
     }
@@ -180,7 +200,7 @@ public class GameController : MonoBehaviour
         foreach(LetterTileController tile in usedTileList)
         {
             tile.SetTileText(LetterBasket.RollDiceAtIdx(tile.diceIdx));
-            tile.SetTileAvailable();
+            tile.PlayReadyAnimation();
         }
         usedTileList.Clear();
     }
@@ -192,20 +212,33 @@ public class GameController : MonoBehaviour
 
     public void ShuffleTiles()
     {
-        List<Vector3> positionsList = new List<Vector3>();
-        foreach(LetterTileController tile in tileList)
+        if (positionsList == null)
         {
-            positionsList.Add(tile.transform.position);
+            StorePositions();
+        }
+        List<Vector3> targetPositionsList = new List<Vector3>();
+        foreach(Vector3 position in positionsList)
+        {
+            targetPositionsList.Add(position);
         }
         int counter = 0;
-        while(positionsList.Count > 0)
+        while(targetPositionsList.Count > 0)
         {
-            int idx = Random.Range(0, positionsList.Count-1);
-            Vector3 targetPos = positionsList[idx];
-            positionsList.RemoveAt(idx);
+            int idx = Random.Range(0, targetPositionsList.Count);
+            Vector3 targetPos = targetPositionsList[idx];
+            targetPositionsList.RemoveAt(idx);
             tileList[counter].transform.DOMove(targetPos, .2f);
             counter++;
         }
+    }
+
+    private void RejectUsedTiles()
+    {
+        foreach(LetterTileController tile in usedTileList)
+        {
+            tile.PlayIncorrectAnimation();
+        }
+        usedTileList.Clear();
     }
 
     private void ClearWord()
