@@ -6,7 +6,7 @@ using UnityEngine.Events;
 public class LongPressHandler : MonoBehaviour
 {
     public UnityEvent onLongPress;
-    public float longPressThreshold = .3f;
+    public float longPressThreshold = .15f;
     private float timeDown;
     private bool pressing = false;
 

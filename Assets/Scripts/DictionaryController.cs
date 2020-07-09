@@ -24,6 +24,7 @@ public class DictionaryController
 
     public static bool ExistsInDictionary(string word)
     {
+        word = word.ToUpper();
         return dictionarySet.Contains(word);
     }
 

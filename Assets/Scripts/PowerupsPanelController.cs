@@ -1,17 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-enum PowerupType
+using TMPro;
+public enum PowerupType
 {
     NewBoard = 1,
 }
 public class PowerupsPanelController : MonoBehaviour
 {
+    public TextMeshProUGUI newBoardPowerupText;
 
     void Start()
     {
         int numNewBoard = PlayerPrefs.GetInt("NewBoardPowerups", 0);
+        newBoardPowerupText.text = numNewBoard.ToString();
     }
     public void OnNewBoardButtonPressed()
     {
@@ -23,6 +25,9 @@ public class PowerupsPanelController : MonoBehaviour
 
     public void AddNewBoardPowerup()
     {
+        int numNewBoard = 1 + PlayerPrefs.GetInt("NewBoardPowerups", 0);
+        PlayerPrefs.SetInt("NewBoardPowerups", numNewBoard);
+        newBoardPowerupText.text = numNewBoard.ToString();
 
     }
 
