@@ -88,6 +88,12 @@ public class GameController : MonoBehaviour
         {
             GameObject.Destroy(child.gameObject);
         }
+        CreateLetterBoard();
+    }
+
+    private void CreateLetterBoard()
+    {
+        tileList = new List<LetterTileController>();
         //spawn all tiles     
         for(int i = 0; i < 16; i++)
         {
@@ -230,6 +236,19 @@ public class GameController : MonoBehaviour
             tileList[counter].transform.DOMove(targetPos, .2f);
             counter++;
         }
+    }
+
+    public void RecycleBoard()
+    {
+        ClearWord();
+        //get rid of old tiles
+        for(int i = 0; i < tileList.Count; i ++)
+        {
+            LetterTileController tile = tileList[i];
+            Destroy(tile.gameObject);
+        }
+        InitializeLetterBoard();
+
     }
 
     private void RejectUsedTiles()

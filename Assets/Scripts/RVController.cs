@@ -4,8 +4,8 @@ using UnityEngine.Events;
 public class RVController : MonoBehaviour, IUnityAdsListener { 
 
     public PowerupsPanelController powerupsPanel;
-    string myPlacementId = "rewardedVideo";
-    bool testMode = true;
+    public WatchRVPanelController watchRVPanelController;
+
     private PowerupType rewardPowerupType;
 
     // Initialize the Ads listener and service:
@@ -35,8 +35,7 @@ public class RVController : MonoBehaviour, IUnityAdsListener {
     public void RequestAd(PowerupType powerupType)
     {
         rewardPowerupType = powerupType;
-        //play ad
-        Advertisement.Show(myPlacementId);
+        watchRVPanelController.Show();
     }
 
     private void RewardForAdSuccess()

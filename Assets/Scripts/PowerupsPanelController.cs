@@ -8,17 +8,30 @@ public enum PowerupType
 }
 public class PowerupsPanelController : MonoBehaviour
 {
-    public TextMeshProUGUI newBoardPowerupText;
+    public PowerupButton newBoardButton;
 
     void Start()
     {
         int numNewBoard = PlayerPrefs.GetInt("NewBoardPowerups", 0);
-        newBoardPowerupText.text = numNewBoard.ToString();
+        newBoardButton.SetCounterText(numNewBoard.ToString());
     }
     public void OnNewBoardButtonPressed()
     {
         //if available
+        int numNewBoard = PlayerPrefs.GetInt("NewBoardPowerups", 0);
+        if (numNewBoard > 0)
+        {
+            numNewBoard--;
+            PlayerPrefs.SetInt("NewBoardPowerups", numNewBoard);
+            newBoardButton.SetCounterText(numNewBoard.ToString());
+
             UsePowerup(PowerupType.NewBoard);
+        }
+        else
+        {
+            newBoardButton.PlayUnavailableAnimation();
+        }
+            
         //if none avaialable
             //STUB: show not available message
     }
@@ -27,12 +40,16 @@ public class PowerupsPanelController : MonoBehaviour
     {
         int numNewBoard = 1 + PlayerPrefs.GetInt("NewBoardPowerups", 0);
         PlayerPrefs.SetInt("NewBoardPowerups", numNewBoard);
-        newBoardPowerupText.text = numNewBoard.ToString();
+        // newBoardButton.SetCounterText(numNewBoard.ToString());
+        newBoardButton.PlayAddCounterAnimation();
 
     }
 
     private void UsePowerup(PowerupType powerupType)
     {
-        //STUB
+        if (powerupType == PowerupType.NewBoard)
+        {
+            GameController.Instance.RecycleBoard();
+        }
     }
 }

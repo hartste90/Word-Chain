@@ -16,7 +16,6 @@ public class DictionaryController
         TextAsset textFile = Resources.Load("Dictionary_EN") as TextAsset;
         string text = textFile.text;
         string[] lines = text.Split('\n');
-        Debug.Log("WORDS NUM: " + lines.Length);
         int count = 0;
         foreach (string line in lines)
         {
@@ -24,8 +23,6 @@ public class DictionaryController
             dictionarySet.Add(word);
             count++;
         }
-        Debug.Log("WORDS NUM2: " + dictionarySet.Count);
-                Debug.Log("WORDS Count: " + count);
 
     }
 
