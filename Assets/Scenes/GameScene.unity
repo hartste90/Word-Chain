@@ -8717,9 +8717,10 @@ GameObject:
   - component: {fileID: 1807567948}
   - component: {fileID: 1807567951}
   - component: {fileID: 1807567950}
-  - component: {fileID: 1807567949}
+  - component: {fileID: 1807567954}
   - component: {fileID: 1807567952}
   - component: {fileID: 1807567953}
+  - component: {fileID: 1807567949}
   m_Layer: 5
   m_Name: Background
   m_TagString: Untagged
@@ -8756,10 +8757,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 1807567947}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8714c362c0c8a6449a9559a31cdab9a5, type: 3}
+  m_Script: {fileID: 11500000, guid: 68356c3764ad390429ddad9e48ce8c31, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 89.15
+  radius: {x: 0, y: 0, z: 0, w: 0}
 --- !u!114 &1807567950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8822,16 +8823,16 @@ MonoBehaviour:
   cornerColorLowerLeft: {r: 0, g: 0, b: 1, a: 1}
   linearGradient:
     serializedVersion: 2
-    key0: {r: 0.6039216, g: 0.7137255, b: 0.15294118, a: 1}
-    key1: {r: 0.11764707, g: 0.454902, b: 0.1764706, a: 1}
-    key2: {r: 0.9882353, g: 0.6901961, b: 0.2705882, a: 0}
+    key0: {r: 0.6613034, g: 0.3402768, b: 0.5446021, a: 1}
+    key1: {r: 0.21960786, g: 0.67058825, b: 0.8941177, a: 1}
+    key2: {r: 0.67058825, g: 0.33333334, b: 0.5372549, a: 0}
     key3: {r: 0, g: 0, b: 0, a: 0}
     key4: {r: 0, g: 0, b: 0, a: 0}
     key5: {r: 0, g: 0, b: 0, a: 0}
     key6: {r: 0, g: 0, b: 0, a: 0}
     key7: {r: 0, g: 0, b: 0, a: 0}
     ctime0: 0
-    ctime1: 65535
+    ctime1: 34117
     ctime2: 65535
     ctime3: 0
     ctime4: 0
@@ -8847,7 +8848,7 @@ MonoBehaviour:
     atime6: 0
     atime7: 0
     m_Mode: 0
-    m_NumColorKeys: 2
+    m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   angle: 90
 --- !u!114 &1807567953
@@ -8865,6 +8866,18 @@ MonoBehaviour:
   m_EffectColor: {r: 0, g: 0, b: 0, a: 0.5}
   m_EffectDistance: {x: 5, y: -8}
   m_UseGraphicAlpha: 1
+--- !u!114 &1807567954
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1807567947}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2ffade7edb5b1df45a6c3642149606c6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1819775729
 GameObject:
   m_ObjectHideFlags: 0
@@ -9380,8 +9393,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 28, y: -672}
-  m_SizeDelta: {x: 885.6, y: 180.45337}
+  m_AnchoredPosition: {x: 28, y: -698.85}
+  m_SizeDelta: {x: 885.6, y: 234.13477}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1943605400
 MonoBehaviour:

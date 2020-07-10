@@ -7,6 +7,7 @@ using UnityEngine.Events;
 using TMPro;
 public class LetterTileController : MonoBehaviour
 {
+    public Transform wrapper;
     public TextMeshProUGUI letterText;
     public Image background;
     public Color availableColor;
@@ -17,7 +18,7 @@ public class LetterTileController : MonoBehaviour
 
     public UnityAction<LetterTileController> pressedCallback;
 
-    void Start()
+    void Awake()
     {
         anim = GetComponent<Animation>();
     }
@@ -69,5 +70,19 @@ public class LetterTileController : MonoBehaviour
     public void PlayIncorrectAnimation()
     {
         anim.Play("TileIncorrect");
+    }
+
+    public void PlayTileEnter()
+    {
+        wrapper.position = new Vector3(wrapper.position.x, 5000f, wrapper.position.z);
+        StartCoroutine(PlayTileEnterImpl());
+        
+    }
+
+    IEnumerator PlayTileEnterImpl()
+    {
+        float delay = UnityEngine.Random.Range(0, .2f);
+        yield return new WaitForSeconds(delay);
+        anim.Play("TileEnter");
     }
 }
