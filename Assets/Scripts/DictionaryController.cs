@@ -12,14 +12,21 @@ public class DictionaryController
     public static void ReadExternalDictionary()
     {
 
-        TextAsset textFile = Resources.Load<TextAsset>("Dictionary_EN");
+        // TextAsset textFile = Resources.Load<TextAsset>("Dictionary_EN");
+        TextAsset textFile = Resources.Load("Dictionary_EN") as TextAsset;
         string text = textFile.text;
-        string[] lines = text.Split(System.Environment.NewLine.ToCharArray());
-
+        string[] lines = text.Split('\n');
+        Debug.Log("WORDS NUM: " + lines.Length);
+        int count = 0;
         foreach (string line in lines)
         {
-            dictionarySet.Add(line);
+            string word = line.Replace("\r\n", "").Replace("\r", "").Replace("\n", "");
+            dictionarySet.Add(word);
+            count++;
         }
+        Debug.Log("WORDS NUM2: " + dictionarySet.Count);
+                Debug.Log("WORDS Count: " + count);
+
     }
 
     public static bool ExistsInDictionary(string word)

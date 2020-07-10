@@ -4,7 +4,7 @@ using UnityEngine.Events;
 public class RVController : MonoBehaviour, IUnityAdsListener { 
 
     public PowerupsPanelController powerupsPanel;
-    string myPlacementId = "DuringGameplay";
+    string myPlacementId = "rewardedVideo";
     bool testMode = true;
     private PowerupType rewardPowerupType;
 
