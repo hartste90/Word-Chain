@@ -42,6 +42,8 @@ public class GameController : MonoBehaviour
 
     public Transform tileGroupParent;
 
+    public BackgroundController backgroundController;
+
 
     private List<LetterTileController> tileList = new List<LetterTileController>();
     private List<LetterTileController> usedTileList = new List<LetterTileController>();
@@ -162,12 +164,13 @@ public class GameController : MonoBehaviour
 
     public void OnSubmitButtonPressed()
     {
+        string word = currentWordText.text;
         bool wordHasBeenUsed = HasWordBeenUsed();
-        bool wordIsInDictionary = IsWordInDictionary(currentWordText.text);
+        bool wordIsInDictionary = IsWordInDictionary(word);
         bool isValid = !wordHasBeenUsed && wordIsInDictionary;
         if (isValid)
         {
-            Submit();
+            Submit(word);
         } 
         else
         {
@@ -190,8 +193,9 @@ public class GameController : MonoBehaviour
     }
 
 
-    private void Submit()
+    private void Submit(string word)
     {
+        CreateInBackground(word);
         ClearTilesAndWord();        
     }
 
@@ -209,6 +213,11 @@ public class GameController : MonoBehaviour
             tile.TileEnter();
         }
         usedTileList.Clear();
+    }
+
+    private void CreateInBackground(string word)
+    {
+        backgroundController.SpawnWord(word);
     }
 
     public void OnShuffleButtonPressed()
