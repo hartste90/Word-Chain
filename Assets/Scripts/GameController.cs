@@ -67,12 +67,13 @@ public class GameController : MonoBehaviour
 
     private void InitializeAdsSDK()
     {
-#if UNITY_IOS 
+        string gameId = "3699028";
+#if UNITY_IOS
         string gameId = "3699028";
 #elif UNITY_ANDROID
         string gameId = "3699029";
 #endif
-        
+
         bool testMode = true;
         Advertisement.Initialize (gameId, testMode);
     }
