@@ -21,6 +21,8 @@ public class LetterTileController : MonoBehaviour
     void Awake()
     {
         anim = GetComponent<Animation>();
+        wrapper.transform.localScale = Vector3.one * UnityEngine.Random.Range(.6f, 1f);
+        wrapper.transform.Rotate(Vector3.forward, UnityEngine.Random.Range(-45, 0));
     }
     
     public void SetTileText(string textSet)

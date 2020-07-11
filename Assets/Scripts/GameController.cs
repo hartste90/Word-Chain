@@ -186,7 +186,6 @@ public class GameController : MonoBehaviour
     private bool IsWordInDictionary(string word)
     {
         bool exists = DictionaryController.ExistsInDictionary(word);
-        Debug.Log(exists);
         return exists;
     }
 
