@@ -5,11 +5,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
 using TMPro;
+using DG.Tweening;
 public class LetterTileController : MonoBehaviour
 {
     public Transform wrapper;
     public TextMeshProUGUI letterText;
     public Image background;
+    public GameObject usedOverlay;
     public Color availableColor;
     public Color usedColor;
     public int diceIdx;
@@ -21,8 +23,12 @@ public class LetterTileController : MonoBehaviour
     void Awake()
     {
         anim = GetComponent<Animation>();
+    }
+
+    private void Randomize()
+    {
         wrapper.transform.localScale = Vector3.one * UnityEngine.Random.Range(.6f, 1f);
-        wrapper.transform.Rotate(Vector3.forward, UnityEngine.Random.Range(-45, 0));
+        wrapper.transform.rotation = Quaternion.AngleAxis(UnityEngine.Random.Range(-45, 0), Vector3.forward);
     }
     
     public void SetTileText(string textSet)
@@ -35,15 +41,11 @@ public class LetterTileController : MonoBehaviour
         // background.color = color;
     }
 
-    public void SetTileAvailable()
-    {
-        // background.color = availableColor;
-        // PlayReadyAnimation();
-    }
-
     public void RevertUsedTile()
     {
         PlayReadyAnimation();
+        
+        usedOverlay.SetActive(false);
         // background.color = availableColor;
     }
 
@@ -51,6 +53,8 @@ public class LetterTileController : MonoBehaviour
     {
         // background.color = usedColor;
         PlayUsedAnimation();
+        wrapper.DOPunchScale(Vector3.one * .5f, .1f);
+        usedOverlay.SetActive(true);
     }
 
     public void OnPressed()
@@ -71,14 +75,22 @@ public class LetterTileController : MonoBehaviour
 
     public void PlayIncorrectAnimation()
     {
+        usedOverlay.SetActive(false);
         anim.Play("TileIncorrect");
     }
 
-    public void PlayTileEnter()
+    public void TileEnter()
     {
+        usedOverlay.SetActive(false);
         wrapper.position = new Vector3(wrapper.position.x, 5000f, wrapper.position.z);
-        StartCoroutine(PlayTileEnterImpl());
+        Randomize();
+        PlayEnterAnimation();
         
+    }
+
+    private void PlayEnterAnimation()
+    {
+        StartCoroutine(PlayTileEnterImpl());
     }
 
     IEnumerator PlayTileEnterImpl()

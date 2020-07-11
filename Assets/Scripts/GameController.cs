@@ -101,7 +101,7 @@ public class GameController : MonoBehaviour
             tile.diceIdx = i;
             tile.SetTileText(LetterBasket.RollDiceAtIdx(tile.diceIdx));
             tile.pressedCallback = OnTilePressed;
-            tile.PlayTileEnter();
+            tile.TileEnter();
             tileList.Add(tile);
         }   
     }
@@ -206,7 +206,7 @@ public class GameController : MonoBehaviour
         foreach(LetterTileController tile in usedTileList)
         {
             tile.SetTileText(LetterBasket.RollDiceAtIdx(tile.diceIdx));
-            tile.PlayTileEnter();
+            tile.TileEnter();
         }
         usedTileList.Clear();
     }
