@@ -27,8 +27,8 @@ public class LetterTileController : MonoBehaviour
 
     private void Randomize()
     {
-        wrapper.transform.localScale = Vector3.one * UnityEngine.Random.Range(.6f, 1f);
-        wrapper.transform.rotation = Quaternion.AngleAxis(UnityEngine.Random.Range(-45, 0), Vector3.forward);
+        // wrapper.transform.localScale = Vector3.one * UnityEngine.Random.Range(.6f, 1f);
+        // wrapper.transform.rotation = Quaternion.AngleAxis(UnityEngine.Random.Range(-45, 0), Vector3.forward);
     }
     
     public void SetTileText(string textSet)
