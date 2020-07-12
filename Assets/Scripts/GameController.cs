@@ -250,6 +250,7 @@ public class GameController : MonoBehaviour
     public void RecycleBoard()
     {
         ClearWord();
+        ClearTiles();
         //get rid of old tiles
         for(int i = 0; i < tileList.Count; i ++)
         {
