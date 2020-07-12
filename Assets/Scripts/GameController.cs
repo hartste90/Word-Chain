@@ -67,7 +67,6 @@ public class GameController : MonoBehaviour
 
     private void InitializeAdsSDK()
     {
-        string gameId = "3699028";
 #if UNITY_IOS
         string gameId = "3699028";
 #elif UNITY_ANDROID
