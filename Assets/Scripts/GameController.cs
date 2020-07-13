@@ -105,7 +105,7 @@ public class GameController : MonoBehaviour
             tile.pressedCallback = OnTilePressed;
             tile.TileEnter();
             tileList.Add(tile);
-        }   
+        }
     }
 
     private void StorePositions()
@@ -207,10 +207,28 @@ public class GameController : MonoBehaviour
 
     private void ClearTiles()
     {
+        ExitTiles(usedTileList);
+        StartCoroutine(ReplaceUsedTiles());
+        
+    }
+
+    private void ExitTiles( List<LetterTileController> tileList)
+    {
+        foreach(LetterTileController tile in tileList)
+        {
+            tile.TileExit();
+        }
+    }
+
+    IEnumerator ReplaceUsedTiles()
+    {
+        yield return new WaitForSeconds (1f);
+
         foreach(LetterTileController tile in usedTileList)
         {
             tile.SetTileText(LetterBasket.RollDiceAtIdx(tile.diceIdx));
             tile.TileEnter();
+            Debug.Log("Entering tile");
         }
         usedTileList.Clear();
     }
@@ -250,7 +268,7 @@ public class GameController : MonoBehaviour
     public void RecycleBoard()
     {
         ClearWord();
-        ClearTiles();
+        ExitTiles(tileList);
         //get rid of old tiles
         for(int i = 0; i < tileList.Count; i ++)
         {

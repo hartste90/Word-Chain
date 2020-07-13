@@ -39,7 +39,21 @@ public class LetterBasket
         diceList.Add(new List<string>() { "A","D","E","N","V","Z" });
         diceList.Add(new List<string>() { "B","I","F","O","R","X" });
         
+        diceList = RandomizeDiceOrder(diceList);
         return diceList;
+    }
+
+    private static List<List<string>> RandomizeDiceOrder(List<List<string>> diceList)
+    {
+        List<List<string>> newList = new List<List<string>>();
+        int count = diceList.Count;
+        for(int i = 0; i < count; i++)
+        {
+            int idx = Random.Range(0, diceList.Count);
+            newList.Add(diceList[idx]);
+            diceList.RemoveAt(idx);
+        }
+        return newList;
     }
 
     public static string RollDiceAtIdx (int idx)

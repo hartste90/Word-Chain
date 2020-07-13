@@ -54,7 +54,7 @@ public class LetterTileController : MonoBehaviour
         // background.color = usedColor;
         PlayUsedAnimation();
         wrapper.DOPunchScale(Vector3.one * .5f, .1f);
-        usedOverlay.SetActive(true);
+        // usedOverlay.SetActive(true);
     }
 
     public void OnPressed()
@@ -88,6 +88,11 @@ public class LetterTileController : MonoBehaviour
         
     }
 
+    public void TileExit()
+    {
+        PlayExitAnimation();
+    }
+
     private void PlayEnterAnimation()
     {
         StartCoroutine(PlayTileEnterImpl());
@@ -99,4 +104,21 @@ public class LetterTileController : MonoBehaviour
         yield return new WaitForSeconds(delay);
         anim.Play("TileEnter");
     }
+
+    private void PlayExitAnimation()
+    {
+        StartCoroutine(PlayTileExitImpl());
+    }
+
+    IEnumerator PlayTileExitImpl()
+    {
+        float delay = UnityEngine.Random.Range(0, .25f);
+        yield return new WaitForSeconds(delay);
+        anim.Play("TileExit");
+    }
+
+    // public void OnTileExitAnimationComplete()
+    // {
+
+    // }
 }
