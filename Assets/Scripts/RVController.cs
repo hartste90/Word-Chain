@@ -58,4 +58,9 @@ public class RVController : MonoBehaviour, IUnityAdsListener {
     public void OnDestroy() {
         Advertisement.RemoveListener(this);
     }
+
+    public void SetPowerupsPanel(PowerupsPanelController powerupsPanelSet)
+    {
+        powerupsPanel = powerupsPanelSet;
+    }
 }

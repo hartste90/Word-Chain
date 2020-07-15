@@ -17,6 +17,7 @@ public class LetterTileController : MonoBehaviour
     public int diceIdx;
 
     private Animation anim;
+    private bool isUsed = false;
 
     public UnityAction<LetterTileController> pressedCallback;
 
@@ -46,6 +47,7 @@ public class LetterTileController : MonoBehaviour
         PlayReadyAnimation();
         
         usedOverlay.SetActive(false);
+        isUsed = false;
         // background.color = availableColor;
     }
 
@@ -55,12 +57,41 @@ public class LetterTileController : MonoBehaviour
         PlayUsedAnimation();
         wrapper.DOPunchScale(Vector3.one * .5f, .1f);
         // usedOverlay.SetActive(true);
+        isUsed = true;
     }
 
     public void OnPressed()
     {
+#if UNITY_EDITOR
         pressedCallback(this);
+#endif
     }
+
+    public void OnMouseOver()
+    {
+        if (Input.GetMouseButton(0))
+        {
+            pressedCallback(this);
+        }
+    }
+
+//     public void OnMouseOver()
+//     {
+//         if (!isUsed)
+//         {
+// #if UNITY_EDITOR
+//             if (Input.GetMouseButton(0))
+//             {
+//                 pressedCallback(this);
+//             } 
+// #else
+//             // if (Input.touchCount == 1)
+//             // {
+//                 pressedCallback(this);
+//             // }
+// #endif
+//         }
+//     }
 
     //animations
     public void PlayReadyAnimation()
@@ -77,6 +108,7 @@ public class LetterTileController : MonoBehaviour
     {
         usedOverlay.SetActive(false);
         anim.Play("TileIncorrect");
+        isUsed = false;
     }
 
     public void TileEnter()
@@ -91,6 +123,7 @@ public class LetterTileController : MonoBehaviour
     public void TileExit()
     {
         PlayExitAnimation();
+        isUsed = false;
     }
 
     private void PlayEnterAnimation()
