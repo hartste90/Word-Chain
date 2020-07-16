@@ -237,4 +237,14 @@ public class TrialController : MonoBehaviour
         return powerupsPanelController;
     }
 
+    public void HandleAllQuestsCompleted()
+    {
+        ExitTrial();
+    }
+
+    private void ExitTrial()
+    {
+        gameController.EndTrial();
+    }
+
 }

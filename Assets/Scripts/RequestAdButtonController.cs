@@ -15,7 +15,7 @@ public class RequestAdButtonController : MonoBehaviour
 
     public void OnRequestAdButtonPressed()
     {
-        rVController.RequestAd(PowerupType.NewBoard);
+        rVController.RequestAd();
     }
 
 }

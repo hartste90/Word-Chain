@@ -65,6 +65,6 @@ public class QuestsController : MonoBehaviour
     public void HandleAllQuestsCompleted()
     {
         // trialController.HandleAllQuestsCompleted();
-        Debug.Log("All quests completed!");
+        trialController.HandleAllQuestsCompleted();
     }
 }

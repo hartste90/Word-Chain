@@ -6,11 +6,25 @@ public class RVController : MonoBehaviour, IUnityAdsListener {
     public PowerupsPanelController powerupsPanel;
     public WatchRVPanelController watchRVPanelController;
 
-    private PowerupType rewardPowerupType;
+    public MovingRVButton rvButtonPrefab;
+    public Transform rvBubbleParent;
+
+    private PowerupType rewardPowerupType = PowerupType.NewBoard;
 
     // Initialize the Ads listener and service:
     void Start () {
         Advertisement.AddListener (this);
+        if (Advertisement.IsReady())
+        {
+            SurfaceRVOption(PowerupType.NewBoard);
+        }
+    }
+
+    public void SurfaceRVOption(PowerupType powerupType)
+    {
+        rewardPowerupType = powerupType;
+        MovingRVButton rvButton = Instantiate<MovingRVButton>(rvButtonPrefab, rvBubbleParent);
+        rvButton.Initialize(rewardPowerupType, RequestAd);
     }
 
     // Implement IUnityAdsListener interface methods:
@@ -23,18 +37,22 @@ public class RVController : MonoBehaviour, IUnityAdsListener {
         } else if (showResult == ShowResult.Failed) {
             Debug.LogWarning ("The ad did not finish due to an error.");
         }
+        Time.timeScale = 1f;
     }
 
     public void OnUnityAdsReady (string placementId) {
+        // SurfaceRVOption(PowerupType.NewBoard);
         // If the ready Placement is rewarded, show the ad:
         // if (placementId == myPlacementId) {
         //     Advertisement.Show (myPlacementId);
         // }
     }
 
-    public void RequestAd(PowerupType powerupType)
+
+
+    public void RequestAd()
     {
-        rewardPowerupType = powerupType;
+        Time.timeScale = 0f;
         watchRVPanelController.Show();
     }
 

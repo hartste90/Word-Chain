@@ -17,6 +17,7 @@ public class WatchRVPanelController : MonoBehaviour
     public void OnNoButtonPressed()
     {
         Hide();
+        Time.timeScale = 1f;
     }
 
     public void OnYesButtonPressed()

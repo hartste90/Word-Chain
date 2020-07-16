@@ -86,6 +86,11 @@ public class GameController : MonoBehaviour
         rVController.SetPowerupsPanel(trialController.GetPowerupsPanel());
         trialController.BeginTrial();
     }
+
+    public void EndTrial()
+    {
+        Destroy(trialController.gameObject);
+    }
         
 
     
