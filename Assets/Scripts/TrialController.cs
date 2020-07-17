@@ -30,6 +30,7 @@ public class TrialController : MonoBehaviour
         questsController.BeginTrial();
     }
 
+    
     private void InitializeLetterBoard()
     {
         LetterBasket.Initialize();

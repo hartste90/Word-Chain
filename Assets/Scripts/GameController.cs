@@ -40,6 +40,7 @@ public class GameController : MonoBehaviour
 
     public Transform trialParent;
     public BackgroundController backgroundController;
+    public TrialEndPanel trialEndPanel;
     public RVController rVController;
     private TrialController trialController;
 

@@ -46,7 +46,7 @@ public class QuestItem : MonoBehaviour
 
     private void UpdateGoalProgress()
     {
-        if (currentCount == targetCount)
+        if (currentCount == goalNum)
         {
             CompleteQuest();
         }
