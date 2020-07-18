@@ -11,20 +11,41 @@ public class RVController : MonoBehaviour, IUnityAdsListener {
 
     private PowerupType rewardPowerupType = PowerupType.NewBoard;
 
+    private float lifetimeGameSeconds;
+    private float timeLastSurfacedAdOffer;
+
     // Initialize the Ads listener and service:
     void Start () {
         Advertisement.AddListener (this);
-        if (Advertisement.IsReady())
+        lifetimeGameSeconds = PlayerPrefsPro.GetFloat("LIFETIME_GAME_SECONDS", 0f);
+    }
+
+    void Update()
+    {
+        if (Time.time - lifetimeGameSeconds > 5f)
         {
-            SurfaceRVOption(PowerupType.NewBoard);
+            lifetimeGameSeconds = Time.time;
+            PlayerPrefsPro.SetFloat("LIFETIME_GAME_SECONDS", lifetimeGameSeconds);
+        }
+
+        if (lifetimeGameSeconds > 60f)
+        {
+            if (Time.time - timeLastSurfacedAdOffer > 60f)
+            {
+                timeLastSurfacedAdOffer = Time.time;
+                SurfaceRVOption(PowerupType.NewBoard);
+            }
         }
     }
 
     public void SurfaceRVOption(PowerupType powerupType)
     {
-        rewardPowerupType = powerupType;
-        MovingRVButton rvButton = Instantiate<MovingRVButton>(rvButtonPrefab, rvBubbleParent);
-        rvButton.Initialize(rewardPowerupType, RequestAd);
+        if (Advertisement.IsReady())
+        {
+            rewardPowerupType = powerupType;
+            MovingRVButton rvButton = Instantiate<MovingRVButton>(rvButtonPrefab, rvBubbleParent);
+            rvButton.Initialize(rewardPowerupType, RequestAd);
+        }
     }
 
     // Implement IUnityAdsListener interface methods:
