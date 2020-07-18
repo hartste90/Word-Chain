@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Advertisements;
 using TMPro;
 using DG.Tweening;
+using GameAnalyticsSDK;
 
 public class GameController : MonoBehaviour
 {

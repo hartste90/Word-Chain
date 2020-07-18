@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using DG.Tweening;
+using GameAnalyticsSDK;
 
 public class TrialController : MonoBehaviour
 {
@@ -18,6 +19,8 @@ public class TrialController : MonoBehaviour
     private List<Vector3> positionsList;
     private GameController gameController;
 
+    //analytics
+    private float trialStartTime;
 
     public void SetGameController(GameController gameControllerSet)
     {
@@ -28,6 +31,8 @@ public class TrialController : MonoBehaviour
         InitializeLetterBoard();
         currentWordText.text = "";
         questsController.BeginTrial();
+        trialStartTime = Time.time;
+
     }
 
     
@@ -241,6 +246,7 @@ public class TrialController : MonoBehaviour
     public void HandleAllQuestsCompleted()
     {
         ExitTrial();
+        GameAnalytics.NewDesignEvent ("trialComplete", Time.time-trialStartTime);
     }
 
     private void ExitTrial()
