@@ -80,7 +80,7 @@ public class MovingRVButton : MonoBehaviour
     public void OnButtonPressed()
     {
         PlayBubbleOutAnimation();
-        onPressedCallback.Invoke();
+        onPressedCallback?.Invoke();
     }
 
     private void SetImage(PowerupType powerupType)

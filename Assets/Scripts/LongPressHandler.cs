@@ -31,7 +31,7 @@ public class LongPressHandler : MonoBehaviour
         {
             if (Time.time - timeDown > longPressThreshold)
             {
-                onLongPress.Invoke();
+                onLongPress?.Invoke();
                 pressing = false;
             }
         }

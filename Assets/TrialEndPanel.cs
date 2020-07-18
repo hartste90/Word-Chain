@@ -1,25 +1,26 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
 using UnityEngine;
-
+using UnityEngine.Events;
 public class TrialEndPanel : MonoBehaviour
 {
-    TrialEndPanelAnimationCtrl anim;
-    // [SerializeField] Animation anim;
-    void Start()
+    public TrialEndPanelAnimationCtrl anim;
+
+    public UnityEvent nextLevelButtonCallback;
+
+
+    public void SetTrialEndCallback(UnityAction nextTrialCallbackSet)
     {
-        anim = GetComponent<TrialEndPanelAnimationCtrl>();
-        anim.PlayTrialCompleteEnterAnimation();
+        nextLevelButtonCallback.AddListener(nextTrialCallbackSet);
     }
 
+    public void Show()
+    {
+        anim.PlayTrialCompleteEnterAnimation();
+    }
 
     public void OnNextLevelButtonPressed()
     {
-        anim.PlayTrialCompleteEnterAnimation();
+        anim.HidePanel();
+        nextLevelButtonCallback?.Invoke();
     }
-
-    // void PlayTrialCompleteEnterAnimation()
-    // {
-    //     anim.Play("TrialCompleteEnter");
-    // }
 }

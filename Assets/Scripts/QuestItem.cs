@@ -36,7 +36,7 @@ public class QuestItem : MonoBehaviour
     private void CompleteQuest()
     {
         ShowComplete();
-        onQuestCompletedCallback.Invoke();
+        onQuestCompletedCallback?.Invoke();
     }
     public void ShowComplete()
     {

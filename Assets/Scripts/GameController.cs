@@ -51,6 +51,7 @@ public class GameController : MonoBehaviour
     {
         InitializeSDKs();
         InitializeDictionary();
+        SetControllerCallbacks();
         BeginTrial();
 
     }
@@ -78,6 +79,11 @@ public class GameController : MonoBehaviour
     {
         DictionaryController.ReadExternalDictionary();
     }
+
+    private void SetControllerCallbacks()
+    {
+        trialEndPanel.SetTrialEndCallback(BeginTrial);
+    }
     
 
     private void BeginTrial()
@@ -91,6 +97,7 @@ public class GameController : MonoBehaviour
     public void EndTrial()
     {
         Destroy(trialController.gameObject);
+        trialEndPanel.Show();
     }
         
 

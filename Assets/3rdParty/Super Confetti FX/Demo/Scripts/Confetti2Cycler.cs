@@ -6,8 +6,7 @@ namespace Confetti2
 {
     public class Confetti2Cycler : MonoBehaviour
     {
-        [SerializeField]
-        List<GameObject> listOfEffects;
+        public List<GameObject> listOfEffects;
 
         [Header("Loop length in seconds")]
         [SerializeField]
