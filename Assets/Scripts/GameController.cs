@@ -97,6 +97,7 @@ public class GameController : MonoBehaviour
     public void EndTrial()
     {
         Destroy(trialController.gameObject);
+        backgroundController.DestroyAllBlocks();
         trialEndPanel.Show();
     }
         

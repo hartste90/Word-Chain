@@ -9,6 +9,7 @@ public class BackgroundController : MonoBehaviour
     public Transform blockSpawnMin;
     public Transform blockSpawnMax;
     public float maxDistance = .25f;
+    List<BackgroundBlock> blockList = new List<BackgroundBlock>();
 
     //spawns a word with the letters spread out
     public void SpawnWord(string word)
@@ -39,5 +40,15 @@ public class BackgroundController : MonoBehaviour
         block.transform.position = new Vector3(xPos, blockSpawnMin.position.y, blockSpawnMin.position.z);
         block.transform.localPosition = block.transform.localPosition + Vector3.up * yPos;
         block.Initialize(letter);
+        blockList.Add(block);
+    }
+
+    public void DestroyAllBlocks()
+    {
+        for(int i = 0; i < blockList.Count; i++)
+        {
+            Destroy(blockList[i].gameObject);
+        }
+        blockList.Clear();
     }
 }

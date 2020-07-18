@@ -9,7 +9,7 @@ public class MinimumQuestItem : QuestItem
         if (word.Length >= targetCount)
         {
             currentCount++;
+            base.AccountWord(word);
         }
-        base.AccountWord(word);
     }
 }

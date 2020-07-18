@@ -19,13 +19,9 @@ public class QuestsController : MonoBehaviour
     private int completedQuestCount;
     private Dictionary<int, TrialData> trialLibrary;
 
-    void Awake()
-    {
-        GenerateTrialLibrary();
-    }
-
     public void BeginTrial()
     {
+        GenerateTrialLibrary();
         CreateQuests();
         completedQuestCount = 0;
 
@@ -35,8 +31,8 @@ public class QuestsController : MonoBehaviour
     {
         int lastCompletedQuest = PlayerPrefsPro.GetInt("lastCompletedQuest", 0);
         //fetch quest data for trial
-        int idx = lastCompletedQuest++;
-        if (idx > trialLibrary.Count)
+        int idx = lastCompletedQuest+1;
+        if (idx >= trialLibrary.Count)
         {
             idx = 0;
             PlayerPrefsPro.SetInt("lastCompletedQuest", 0);
@@ -92,7 +88,7 @@ public class QuestsController : MonoBehaviour
     public void OnQuestCompleted()
     {
         completedQuestCount++;
-        if (completedQuestCount == 3)
+        if (completedQuestCount == questItemList.Count)
         {
             HandleAllQuestsCompleted();
         }
@@ -101,7 +97,7 @@ public class QuestsController : MonoBehaviour
     public void HandleAllQuestsCompleted()
     {
         int lastCompletedQuest = PlayerPrefsPro.GetInt("lastCompletedQuest", 0);
-        PlayerPrefsPro.SetInt("lastCompletedQuest", lastCompletedQuest++);
+        PlayerPrefsPro.SetInt("lastCompletedQuest", lastCompletedQuest+1);
         PlayerPrefsPro.Save();
         trialController.HandleAllQuestsCompleted();
     }

@@ -9,7 +9,8 @@ public class ExactQuestItem : QuestItem
         if (word.Length == targetCount)
         {
             currentCount++;
+            base.AccountWord(word);
         }
-        base.AccountWord(word);
+        
     }
 }
