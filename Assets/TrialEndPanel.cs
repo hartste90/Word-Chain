@@ -5,6 +5,8 @@ public class TrialEndPanel : MonoBehaviour
 {
     public TrialEndPanelAnimationCtrl anim;
 
+    public GameController gameController;
+
     public UnityEvent nextLevelButtonCallback;
 
 
@@ -16,11 +18,13 @@ public class TrialEndPanel : MonoBehaviour
     public void Show()
     {
         anim.PlayTrialCompleteEnterAnimation();
+        gameController.EnableInput();
     }
 
     public void OnNextLevelButtonPressed()
     {
         anim.HidePanel();
         nextLevelButtonCallback?.Invoke();
+        
     }
 }

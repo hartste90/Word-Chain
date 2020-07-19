@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
@@ -60,6 +61,12 @@ public class TrialController : MonoBehaviour
             tile.TileEnter();
             tileList.Add(tile);
         }
+        Invoke(HandleTrialEnterComplete, .6f);
+    }
+
+    private void HandleTrialEnterComplete()
+    {
+        gameController.EnableInput();
     }
 
     private void StorePositions()
@@ -181,6 +188,9 @@ public class TrialController : MonoBehaviour
             tile.TileEnter();
         }
         usedTileList.Clear();
+
+        yield return new WaitForSeconds(.6f);
+        gameController.EnableInput();
     }
 
     public void ShuffleTiles()
@@ -197,7 +207,7 @@ public class TrialController : MonoBehaviour
         int counter = 0;
         while(targetPositionsList.Count > 0)
         {
-            int idx = Random.Range(0, targetPositionsList.Count);
+            int idx = UnityEngine.Random.Range(0, targetPositionsList.Count);
             Vector3 targetPos = targetPositionsList[idx];
             targetPositionsList.RemoveAt(idx);
             tileList[counter].transform.DOMove(targetPos, .2f);
@@ -252,6 +262,17 @@ public class TrialController : MonoBehaviour
     private void ExitTrial()
     {
         gameController.EndTrial();
+    }
+
+    public Coroutine Invoke(Action action, float time)
+    {
+        return StartCoroutine(InvokeImpl(action, time));
+    }
+
+    private IEnumerator InvokeImpl(Action action, float time)
+    {
+        yield return new WaitForSeconds(time);
+        action();
     }
 
 }

@@ -56,7 +56,7 @@ public class LetterTileController : MonoBehaviour
     public void OnPressed()
     {
 #if UNITY_EDITOR
-        pressedCallback(this);
+        EvokeCallback();
 #endif
     }
 
@@ -64,8 +64,13 @@ public class LetterTileController : MonoBehaviour
     {
         if (Input.GetMouseButton(0))
         {
-            pressedCallback(this);
+            EvokeCallback();
         }
+    }
+
+    private void EvokeCallback()
+    {
+        pressedCallback(this);
     }
 
     //animations

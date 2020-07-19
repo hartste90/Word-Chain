@@ -63,7 +63,10 @@ public class QuestsController : MonoBehaviour
             qItem.onQuestCompletedCallback.AddListener(OnQuestCompleted);
         }
 
+        Canvas.ForceUpdateCanvases();
         float width = Screen.width;
+        // float width = questParent.GetComponent<RectTransform>().sizeDelta.x;
+        Debug.Log("Quest wdith: " + width);
         float distance = width / questItemList.Count; 
         float offset;
         if (questItemList.Count % 2 != 0)

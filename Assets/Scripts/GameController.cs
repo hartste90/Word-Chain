@@ -45,6 +45,8 @@ public class GameController : MonoBehaviour
     public RVController rVController;
     private TrialController trialController;
 
+    public GameObject inputBlocker;
+
 
     
 
@@ -89,6 +91,7 @@ public class GameController : MonoBehaviour
 
     private void BeginTrial()
     {
+        DisableInput();
         trialController = Instantiate<TrialController>(trialPrefab, trialParent);
         trialController.SetGameController(this);
         rVController.SetPowerupsPanel(trialController.GetPowerupsPanel());
@@ -121,6 +124,7 @@ public class GameController : MonoBehaviour
     public void OnSubmitButtonPressed(string word)
     {
         CreateInBackground(word);
+        DisableInput();
     }
 
     
@@ -139,6 +143,16 @@ public class GameController : MonoBehaviour
     public void RecycleBoard()
     {
         trialController.RecycleBoard();
+    }
+
+    public void DisableInput()
+    {
+        inputBlocker.SetActive(true);
+    }
+
+    public void EnableInput()
+    {
+        inputBlocker.SetActive(false);
     }
     
 

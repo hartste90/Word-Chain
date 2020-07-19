@@ -9,7 +9,14 @@ public class MinimumQuestItem : QuestItem
         if (word.Length >= targetCount)
         {
             currentCount++;
+            MarkProgressMade();
             base.AccountWord(word);
         }
+        
+    }
+
+    public override void MarkProgressMade()
+    {
+        base.MarkProgressMade();
     }
 }
