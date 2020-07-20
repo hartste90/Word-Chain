@@ -5,6 +5,11 @@ using UnityEngine;
 //creates the quests
 //tracks the quests as they are progressed, updates view
 //callback called when all quests are completed
+/*NOTE
+*
+    Safe letters to use for specific letter (have more than 3 occurances across tiles):
+    All vowels, D, G, H, L, N, M, P, R, S*(easiest), T
+*/
 public class QuestsController : MonoBehaviour
 {
     public Transform questParent;

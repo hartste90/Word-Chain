@@ -13,6 +13,7 @@ public class RVController : MonoBehaviour, IUnityAdsListener {
 
     private float lifetimeGameSeconds;
     private float timeLastSurfacedAdOffer;
+    private MovingRVButton currentOffer;
 
     // Initialize the Ads listener and service:
     void Start () {
@@ -43,9 +44,23 @@ public class RVController : MonoBehaviour, IUnityAdsListener {
         if (Advertisement.IsReady())
         {
             rewardPowerupType = powerupType;
-            MovingRVButton rvButton = Instantiate<MovingRVButton>(rvButtonPrefab, rvBubbleParent);
-            rvButton.Initialize(rewardPowerupType, RequestAd);
+            currentOffer = Instantiate<MovingRVButton>(rvButtonPrefab, rvBubbleParent);
+            currentOffer.Initialize(rewardPowerupType, RequestAd, HandleRVRequestDestroyed);
         }
+    }
+
+    public void DestroyCurrentOffer()
+    {
+        if (currentOffer != null)
+        {
+            currentOffer.PlayBubbleOutAnimation();
+        }
+    }
+
+    public void HandleRVRequestDestroyed()
+    {
+        currentOffer = null;
+        timeLastSurfacedAdOffer = Time.time;
     }
 
     // Implement IUnityAdsListener interface methods:
