@@ -175,7 +175,6 @@ public class QuestsController : MonoBehaviour
         {
             //generate total difficulty for this trial
             int trialDifficulty = Random.Range(3, 10);
-            Debug.Log("Trial diff: " + trialDifficulty);
             qDataList.Clear();
             while (qDataList.Count < 2 && trialDifficulty >= 0)
             {

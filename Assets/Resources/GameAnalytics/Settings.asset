@@ -27,20 +27,26 @@ MonoBehaviour:
   CustomArea: 
   gameKey:
   - 4a91e65705bb8d8bcf002eb8f2d4836e
+  - 274b8cff1c81d290cb43ee802dc21910
   secretKey:
   - bfcbc66fbf2c6869c97e3dd9712ecb38a028e81d
+  - a0d7dfb2989d158412c699d97a0f4d2d8daf11cb
   Build:
+  - 1.0.2
   - 1.0.2
   SelectedPlatformOrganization:
   - Rapidfire Studios
+  - 
   SelectedPlatformStudio:
   - Rapidfire Studios
+  - 
   SelectedPlatformGame:
   - Please Make Words
-  SelectedPlatformGameID: a2a70100
-  SelectedOrganization: 01000000
-  SelectedStudio: 01000000
-  SelectedGame: 01000000
+  - 
+  SelectedPlatformGameID: a2a70100ffffffff
+  SelectedOrganization: 0100000001000000
+  SelectedStudio: 0100000001000000
+  SelectedGame: 0100000000000000
   NewVersion: 
   Changes: 
   SignUpOpen: 1
@@ -63,8 +69,8 @@ MonoBehaviour:
   ResourceItemTypes: []
   ResourceCurrencies: []
   LastCreatedGamePlatform: -1
-  Platforms: 08000000
-  CurrentInspectorState: 1
+  Platforms: 080000000b000000
+  CurrentInspectorState: 3
   ClosedHints: 
   DisplayHints: 0
   DisplayHintsScrollState: {x: 0, y: 0}
@@ -90,7 +96,7 @@ MonoBehaviour:
   IncludeGooglePlay: 1
   FpsCriticalThreshold: 20
   FpsCirticalSubmitInterval: 1
-  PlatformFoldOut: 01
+  PlatformFoldOut: 0101
   CustomDimensions01FoldOut: 0
   CustomDimensions02FoldOut: 0
   CustomDimensions03FoldOut: 0

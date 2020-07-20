@@ -120,6 +120,7 @@ public class TrialController : MonoBehaviour
 
     public void OnSubmitButtonPressed()
     {
+        GameAnalytics.NewDesignEvent ("Analytics Test Event Name", UnityEngine.Random.Range(.1f, .9f));
         string word = currentWordText.text;
         bool wordHasBeenUsed = HasWordBeenUsed();
         bool wordIsInDictionary = IsWordInDictionary(word);
