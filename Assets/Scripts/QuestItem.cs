@@ -124,7 +124,7 @@ public class QuestItem : MonoBehaviour
         int vowelIdx = ContainsVowel(word);
         if (vowelIdx != -1)
         {
-            string sub = word.Remove(vowelIdx);
+            string sub = word.Remove(vowelIdx, 1);
             if (ContainsVowel(sub) == -1)
             {
                 currentCount++;
@@ -138,11 +138,11 @@ public class QuestItem : MonoBehaviour
         int vowelIdx = ContainsVowel(word);
         if (vowelIdx != -1)
         {
-            string sub = word.Remove(vowelIdx);
+            string sub = word.Remove(vowelIdx, 1);
             vowelIdx = ContainsVowel(sub);
             if (vowelIdx != -1)
             {
-                sub = sub.Remove(vowelIdx);
+                sub = sub.Remove(vowelIdx, 1);
                 if (ContainsVowel(sub) == -1)
                 {
                     currentCount++;
