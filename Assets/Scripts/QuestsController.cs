@@ -5,11 +5,7 @@ using UnityEngine;
 //creates the quests
 //tracks the quests as they are progressed, updates view
 //callback called when all quests are completed
-/*NOTE
-*
-    Safe letters to use for specific letter (have more than 3 occurances across tiles):
-    All vowels, D, G, H, L, N, M, P, R, S*(easiest), T
-*/
+
 public class QuestsController : MonoBehaviour
 {
     public Transform questParent;
@@ -123,10 +119,19 @@ public class QuestsController : MonoBehaviour
 
     public void GenerateTrialLibrary()
     {
+
+/*NOTE
+*
+    Safe letters to use for specific letter (have more than 3 occurances across tiles):
+    All vowels, D, G, H, L, N, M, P, R, S*(easiest), T
+*/
+
+        GenerateTrialLibraryImpl();
+        return;
         trialLibrary = new Dictionary<int, TrialData>();
         List<QuestData> qData;
         TrialData tData;
-        
+
         //quest 1
         qData = new List<QuestData>();
         qData.Add(new QuestData( QuestType.exactLength, 3, 3));
@@ -159,6 +164,59 @@ public class QuestsController : MonoBehaviour
         qData.Add(new QuestData( QuestType.twoVowelWord, 2));
         tData = new TrialData(3, qData);
         trialLibrary.Add(3, tData);
+    }
+
+    private void GenerateTrialLibraryImpl()
+    {
+        trialLibrary = new Dictionary<int, TrialData>();
+        List<QuestData> qDataList = new List<QuestData>();
+
+        for(int i = 0; i < 1000; i++)
+        {
+            //generate total difficulty for this trial
+            int trialDifficulty = Random.Range(3, 10);
+            Debug.Log("Trial diff: " + trialDifficulty);
+            qDataList.Clear();
+            while (qDataList.Count < 2 && trialDifficulty >= 0)
+            {
+                QuestData qData = CreateRandomQuest();
+                qDataList.Add(qData);
+                trialDifficulty -= 3;
+            }
+            //add to trial library
+            TrialData tData = new TrialData(i, qDataList);
+            trialLibrary.Add(i, tData);
+        }
+    }
+
+    private QuestData CreateRandomQuest()
+    {
+        // int questDifficulty = Random.Range(Mathf.Min(trialDifficulty, 3), 5);
+        // Debug.Log("Creating Quest of diff: " + questDifficulty);
+        // trialDifficulty -= questDifficulty;
+        // All vowels, D, G, H, L, N, M, P, R, S*(easiest), T
+        List<string> specificLetters = new List<string>(){ "D", "G", "H", "L", "N", "M", "P", "R", "S", "T" };
+        QuestType qType = (QuestType)Random.Range(0, 5);
+        QuestData qData = new QuestData(qType, Random.Range(1, 4), Random.Range(2, 5));
+        switch(qType)
+        {
+            case QuestType.exactLength:
+                qData = new QuestData(qType, Random.Range(1, 4), Random.Range(2, 5));
+                break;
+            case QuestType.minimumLength:
+                qData = new QuestData(qType, Random.Range(1, 4), Random.Range(3, 6));
+                break;
+            case QuestType.specificLetter:
+                qData = new QuestData(qType, Random.Range(2, 4), 0, specificLetters[Random.Range(0, specificLetters.Count)]);
+                break;
+            case QuestType.vowelWord:
+                qData = new QuestData(qType, Random.Range(2, 4), 0, "");
+                break;
+            case QuestType.twoVowelWord:
+                qData = new QuestData(qType, Random.Range(2, 4), 0, "");
+                break;
+        }
+        return qData;
     }
 }
 
