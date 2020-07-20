@@ -19,6 +19,7 @@ public class LetterTileController : MonoBehaviour
     private Animation anim;
 
     public UnityAction<LetterTileController> pressedCallback;
+    public Action enterCallback;
 
     void Awake()
     {
@@ -109,11 +110,21 @@ public class LetterTileController : MonoBehaviour
         StartCoroutine(PlayTileEnterImpl());
     }
 
+    public void SetEnterCallback(Action enterCallbackSet)
+    {
+        enterCallback = enterCallbackSet;
+    }
+
     IEnumerator PlayTileEnterImpl()
     {
         float delay = UnityEngine.Random.Range(0, .2f);
         yield return new WaitForSeconds(delay);
         anim.Play("TileEnter");
+    }
+
+    public void HandleTileEnterAnimationComplete()
+    {
+        enterCallback?.Invoke();
     }
 
     private void PlayExitAnimation()

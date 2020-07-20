@@ -6,7 +6,7 @@ public class ExactQuestItem : QuestItem
 {
     public override void AccountWord(string word)
     {
-        if (word.Length == targetCount)
+        if (word.Length == wordLengthTarget)
         {
             currentCount++;
             MarkProgressMade();

@@ -1114,9 +1114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   questParent: {fileID: 102643944104591279}
-  exactLengthQuestPrefab: {fileID: -1595755542488512062, guid: e24a1a8861bcdd441aeac213bc5ce745,
-    type: 3}
-  minimumLengthQuestPrefab: {fileID: 7516325735629622951, guid: dd6239956357ffe4498cff63dbaf1325,
+  questItemPrefab: {fileID: 2569573960482304116, guid: f3a708ab6c8fc7147969698010168309,
     type: 3}
   trialController: {fileID: 6488796377330565257}
 --- !u!1 &1966695265795551451

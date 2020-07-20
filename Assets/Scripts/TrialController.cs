@@ -187,10 +187,11 @@ public class TrialController : MonoBehaviour
             tile.SetTileText(LetterBasket.RollDiceAtIdx(tile.diceIdx));
             tile.TileEnter();
         }
+        usedTileList[usedTileList.Count-1].SetEnterCallback(gameController.EnableInput);
         usedTileList.Clear();
 
-        yield return new WaitForSeconds(.6f);
-        gameController.EnableInput();
+        // yield return new WaitForSeconds(.6f);
+        // gameController.EnableInput();
     }
 
     public void ShuffleTiles()
@@ -255,12 +256,12 @@ public class TrialController : MonoBehaviour
 
     public void HandleAllQuestsCompleted()
     {
-        ExitTrial();
-        GameAnalytics.NewDesignEvent ("trialComplete", Time.time-trialStartTime);
+        Invoke(ExitTrial, 2.5f);
     }
 
     private void ExitTrial()
     {
+        GameAnalytics.NewDesignEvent ("trialComplete", Time.time-trialStartTime);
         gameController.EndTrial();
     }
 

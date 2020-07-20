@@ -21,24 +21,178 @@ public class QuestItem : MonoBehaviour
     
     public UnityEvent onQuestCompletedCallback;
 
-    protected int targetCount;
+    protected int wordLengthTarget;
+    protected string requiredLetter;
     protected int currentCount = 0;
-    protected int goalNum;
+    protected int questTotalWords;
+    private QuestType questType;
     private float goalCelebrationDelay = 1f;
+
 
     public virtual void AccountWord(string word)
     {
-        // UpdateGoalProgress();
+        switch(questType)
+        {
+            case QuestType.exactLength:
+                AccountExactLengthQuest(word);
+                break;
+            case QuestType.minimumLength:
+                AccountMinimumLengthQuest(word);
+                break;
+            case QuestType.specificLetter:
+                AccountSpecificLetterQuest(word);
+                break;
+            case QuestType.vowelWord:
+                AccountVowelQuest(word);
+                break;
+            case QuestType.twoVowelWord:
+                AccountTwoVowelQuest(word);
+                break;
+        }
     }
+
+    public void SetTotalWords(int totalSet)
+    {
+        questTotalWords = totalSet;
+        UpdateText();
+    }
+    public void SetExactLengthType(int targetLengthSet)
+    {
+        questType = QuestType.exactLength;
+        wordLengthTarget = targetLengthSet;
+        goalNameText.text = targetLengthSet + " letter words";
+
+    }
+
+    public void SetMinimumLengthType(int targetLengthSet)
+    {
+        questType = QuestType.minimumLength;
+        wordLengthTarget = targetLengthSet;
+        goalNameText.text = targetLengthSet + "+ letter words";
+    }
+
+    public void SetSpecificLetterType(string letterRequiredSet)
+    {
+        questType = QuestType.specificLetter;
+        requiredLetter = letterRequiredSet;
+        goalNameText.text = letterRequiredSet + "- words";
+    }
+
+    public void SetVowelType()
+    {
+        questType = QuestType.vowelWord;
+        goalNameText.text = "single vowel words";
+    }
+
+    public void SetTwoVowelType()
+    {
+        questType = QuestType.twoVowelWord;
+        goalNameText.text = "2 vowel words";
+    }
+
+    private void AccountExactLengthQuest(string word)
+    {
+        if (word.Length == wordLengthTarget)
+        {
+            currentCount++;
+            MarkProgressMade();
+        }
+    }
+
+    private void AccountMinimumLengthQuest(string word)
+    {
+        if (word.Length >= wordLengthTarget)
+        {
+            currentCount++;
+            MarkProgressMade();
+        }
+    }
+
+    private void AccountSpecificLetterQuest(string word)
+    {
+
+        if (!string.IsNullOrEmpty(requiredLetter) && word.Contains(requiredLetter))
+        {
+            currentCount++;
+            MarkProgressMade();
+        }
+    }
+
+    private void AccountVowelQuest(string word)
+    {
+
+        int vowelIdx = ContainsVowel(word);
+        if (vowelIdx != -1)
+        {
+            string sub = word.Remove(vowelIdx);
+            if (ContainsVowel(sub) == -1)
+            {
+                currentCount++;
+                MarkProgressMade();
+            }
+        }
+    }
+
+    private void AccountTwoVowelQuest(string word)
+    {
+        int vowelIdx = ContainsVowel(word);
+        if (vowelIdx != -1)
+        {
+            string sub = word.Remove(vowelIdx);
+            vowelIdx = ContainsVowel(sub);
+            if (vowelIdx != -1)
+            {
+                sub = sub.Remove(vowelIdx);
+                if (ContainsVowel(sub) == -1)
+                {
+                    currentCount++;
+                    MarkProgressMade();
+                }
+            }
+        }
+    }
+
+    private int ContainsVowel(string word)
+    {
+        if (word.Contains("A"))
+        {
+            return word.IndexOf("A");
+        } 
+        else if (word.Contains("E"))
+        {
+            return word.IndexOf("E");
+        } 
+        else if (word.Contains("I"))
+        {
+            return word.IndexOf("I");
+        } 
+        else if (word.Contains("O"))
+        {
+            return word.IndexOf("O");
+        } 
+        else if (word.Contains("U"))
+        {
+            return word.IndexOf("U");
+        } 
+        else if (word.Contains("Y"))
+        {
+            return word.IndexOf("Y");
+        }
+        else
+        {
+            return -1;
+        }
+    }
+
 
     public virtual void MarkProgressMade()
     {
-        if (currentCount == goalNum)
+        if (currentCount == questTotalWords)
         {
             PlayQuestCompletedAnimation();
             onQuestCompletedCallback?.Invoke();
         }
-        else if (currentCount < goalNum)
+        else if (currentCount < questTotalWords)
         {
             PlayProgressMadeAnimation();
         }
@@ -46,15 +200,15 @@ public class QuestItem : MonoBehaviour
 
     public void Populate(string goalNameSet, int targetCounSet, int goalCountSet)
     {
-        goalNum = goalCountSet;
-        targetCount = targetCounSet;
+        questTotalWords = goalCountSet;
+        wordLengthTarget = targetCounSet;
         goalNameText.text = goalNameSet;
         UpdateText();
     }
 
     private void UpdateText()
     {
-        goalProgressText.text = (goalNum-currentCount).ToString() + " left";
+        goalProgressText.text = (questTotalWords-currentCount).ToString() + " left";
     }
 
     public void PlayProgressMadeAnimation()
@@ -64,7 +218,7 @@ public class QuestItem : MonoBehaviour
         Sequence seq = DOTween.Sequence();
         seq.AppendInterval(goalCelebrationDelay);
         seq.Append(transform.DOScale(Vector3.one * 1.3f, .2f));
-        float fillAmt = (float)currentCount/(float)goalNum + (1f/(float) goalNum / 4f);
+        float fillAmt = (float)currentCount/(float)questTotalWords + (1f/(float) questTotalWords / 4f);
         seq.Append(fillImage.DOFillAmount(fillAmt, .2f));
         seq.Append(goalProgressText.transform.DOLocalRotate(Vector3.up * 90f, .5f).SetEase(Ease.InSine));
         seq.AppendCallback(UpdateText);

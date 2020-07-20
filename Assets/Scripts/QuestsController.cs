@@ -8,8 +8,7 @@ using UnityEngine;
 public class QuestsController : MonoBehaviour
 {
     public Transform questParent;
-    public QuestItem exactLengthQuestPrefab;
-    public QuestItem minimumLengthQuestPrefab;
+    public QuestItem questItemPrefab;
 
     public TrialController trialController;
 
@@ -45,22 +44,8 @@ public class QuestsController : MonoBehaviour
         questItemList = new List<QuestItem>();
         foreach(QuestData qData in tData.questList)
         {
-            QuestItem qItem;
-            switch(qData.questType)
-            {
-                case QuestType.exactLength:
-                    qItem = Instantiate<QuestItem>(exactLengthQuestPrefab, questParent);
-                    break;
-                case QuestType.minimumLength:
-                    qItem = Instantiate<QuestItem>(minimumLengthQuestPrefab, questParent);
-                    break;
-                default:
-                    qItem = new QuestItem();
-                    break;
-            }
-            qItem.Populate(qData.goalTitle, qData.targetCount, qData.goalNum);
-            questItemList.Add(qItem);
-            qItem.onQuestCompletedCallback.AddListener(OnQuestCompleted);
+            CreateQuestFromData(qData);
+            
         }
 
         Canvas.ForceUpdateCanvases();
@@ -78,6 +63,32 @@ public class QuestsController : MonoBehaviour
             float xPos = (i * distance) - offset;
             questItemList[i].transform.localPosition = new Vector3 (xPos, 0, 0);
         }
+    }
+
+    private void CreateQuestFromData(QuestData qData)
+    {
+            QuestItem qItem = Instantiate<QuestItem>(questItemPrefab, questParent);
+            switch(qData.questType)
+            {
+                case QuestType.exactLength:
+                    qItem.SetExactLengthType(qData.wordLengthTarget);
+                    break;
+                case QuestType.minimumLength:
+                    qItem.SetMinimumLengthType(qData.wordLengthTarget);
+                    break;
+                case QuestType.specificLetter:
+                    qItem.SetSpecificLetterType(qData.requiredLetter);
+                    break;
+                case QuestType.vowelWord:
+                    qItem.SetVowelType();
+                    break;
+                case QuestType.twoVowelWord:
+                    qItem.SetTwoVowelType();
+                    break;
+            }
+            qItem.SetTotalWords(qData.questTotalWords);
+            questItemList.Add(qItem);
+            qItem.onQuestCompletedCallback.AddListener(OnQuestCompleted);
     }
 
     public void TrackCompletedWord(string word)
@@ -113,28 +124,34 @@ public class QuestsController : MonoBehaviour
         
         //quest 1
         qData = new List<QuestData>();
-        qData.Add(new QuestData( 3, 3, QuestType.exactLength, "3 letter words"));
-        qData.Add(new QuestData( 4, 1, QuestType.exactLength, "4 letter words"));
+        qData.Add(new QuestData( QuestType.exactLength, 3, 3));
+        qData.Add(new QuestData( QuestType.exactLength, 1, 4));
+        qData.Add(new QuestData( QuestType.specificLetter, 1, 0, "T"));
         tData = new TrialData(0, qData);
         trialLibrary.Add(0, tData);
 
         //quest 2
         qData = new List<QuestData>();
-        qData.Add(new QuestData( 2, 2, QuestType.exactLength, "2 letter words"));
-        qData.Add(new QuestData( 3, 3, QuestType.exactLength, "3 letter words"));
-        qData.Add(new QuestData( 4, 1, QuestType.exactLength, "4 letter words"));
+        qData.Add(new QuestData( QuestType.exactLength, 3, 2));
+        qData.Add(new QuestData( QuestType.exactLength, 2, 3));
+        qData.Add(new QuestData( QuestType.exactLength, 1, 4));
         tData = new TrialData(1, qData);
         trialLibrary.Add(1, tData);
         
         //quest 3
         qData = new List<QuestData>();
-        qData.Add(new QuestData( 3, 3, QuestType.minimumLength, "3+ letter words"));
+        qData.Add(new QuestData( QuestType.minimumLength, 2, 4));
+        qData.Add(new QuestData( QuestType.specificLetter, 2, 0, "P"));
+        qData.Add(new QuestData( QuestType.vowelWord, 2));
+
+
         tData = new TrialData(2, qData);
         trialLibrary.Add(2, tData);
 
         //quest 4
         qData = new List<QuestData>();
-        qData.Add(new QuestData( 4, 2, QuestType.exactLength, "4 letter words"));
+        qData.Add(new QuestData( QuestType.specificLetter, 3, 0, "S"));
+        qData.Add(new QuestData( QuestType.twoVowelWord, 2));
         tData = new TrialData(3, qData);
         trialLibrary.Add(3, tData);
     }
@@ -144,22 +161,26 @@ public enum QuestType
 {
     exactLength = 0,
     minimumLength = 1,
+    specificLetter = 2,
+
+    vowelWord = 3,
+    twoVowelWord = 4
 
 }
 
 public class QuestData
 {
-    public string goalTitle;
-    public int targetCount;
-    public int goalNum;
+    public int wordLengthTarget;
+    public int questTotalWords;
+    public string requiredLetter;
     public QuestType questType;
 
-    public QuestData (int targetCountSet, int goalNumSet, QuestType questTypeSet, string goalTitleSet)
+    public QuestData (QuestType questTypeSet, int questTotalWordsSet, int wordLengthTargetSet = 0, string requiredLetterSet = "")
     {
-        goalTitle = goalTitleSet;
-        targetCount = targetCountSet;
-        goalNum  = goalNumSet;
+        wordLengthTarget = wordLengthTargetSet;
+        questTotalWords  = questTotalWordsSet;
         questType = questTypeSet;
+        requiredLetter = requiredLetterSet;
     }
 }
 
