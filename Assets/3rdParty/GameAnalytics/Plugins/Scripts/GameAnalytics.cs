@@ -106,7 +106,7 @@ namespace GameAnalyticsSDK
 
         void OnApplicationQuit()
         {
-#if (!UNITY_EDITOR && !UNITY_IOS && !UNITY_ANDROID && !UNITY_TVOS && !UNITY_WEBGL && !UNITY_TIZEN)
+#if (!UNITY_EDITOR && !UNITY_IOS && !UNITY_ANDROID && !UNITY_TVOS && !UNITY_WEBGL && !UNITY_TIZEN && !UNITY_SWITCH && !UNITY_PS4 && !UNITY_XBOXONE)
 #if (UNITY_WSA)
             onQuit();
 #else
@@ -672,12 +672,6 @@ namespace GameAnalyticsSDK
             return GA_Wrapper.GetABTestingVariantId();
         }
 
-        // ----------------------- MOPUB AD IMPRESSIONS ---------------------- //
-        public static void SubscribeMoPubImpressions()
-        {
-            GA_Wrapper.SubscribeMoPubImpressions();
-        }
-
         public static void StartTimer(string key)
         {
             GA_Wrapper.StartTimer(key);
@@ -696,6 +690,18 @@ namespace GameAnalyticsSDK
         public static long StopTimer(string key)
         {
             return GA_Wrapper.StopTimer(key);
+        }
+
+        // ----------------------- MOPUB AD IMPRESSIONS ---------------------- //
+        public static void SubscribeMoPubImpressions()
+        {
+            GA_Wrapper.SubscribeMoPubImpressions();
+        }
+
+        // ----------------------- FYBER AD IMPRESSIONS ---------------------- //
+        public static void SubscribeFyberImpressions()
+        {
+            GA_Wrapper.SubscribeFyberImpressions();
         }
 
         private static string GetUnityVersion()
