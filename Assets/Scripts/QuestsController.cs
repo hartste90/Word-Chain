@@ -176,11 +176,15 @@ public class QuestsController : MonoBehaviour
             //generate total difficulty for this trial
             int trialDifficulty = Random.Range(3, 10);
             qDataList.Clear();
+            HashSet<QuestType> questList = new HashSet<QuestType>();
             while (qDataList.Count < 2 && trialDifficulty >= 0)
             {
                 QuestData qData = CreateRandomQuest();
-                qDataList.Add(qData);
-                trialDifficulty -= 3;
+                if (!questList.Contains(qData.questType))
+                {
+                    qDataList.Add(qData);
+                    trialDifficulty -= 3;
+                }
             }
             //add to trial library
             TrialData tData = new TrialData(i, qDataList);
