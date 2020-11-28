@@ -81,7 +81,7 @@ public class QuestItem : MonoBehaviour
     public void SetVowelType()
     {
         questType = QuestType.vowelWord;
-        goalNameText.text = "single vowel words";
+        goalNameText.text = "1 vowel words";
     }
 
     public void SetTwoVowelType()
