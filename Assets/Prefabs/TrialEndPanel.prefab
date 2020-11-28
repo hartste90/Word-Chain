@@ -449,7 +449,7 @@ RectTransform:
   m_GameObject: {fileID: 8970340822672413459}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
   m_Children:
   - {fileID: 8970340824038764419}
   - {fileID: 6132672980525305317}
@@ -1197,7 +1197,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 298}
-  m_SizeDelta: {x: 1044.7705, y: 748.0747}
+  m_SizeDelta: {x: 672.1135, y: 430.07397}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8970340824047299090
 CanvasRenderer:
@@ -1431,6 +1431,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   anim: {fileID: 7061118501876023348}
+  gameController: {fileID: 0}
   nextLevelButtonCallback:
     m_PersistentCalls:
       m_Calls: []
