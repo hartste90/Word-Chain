@@ -11,13 +11,15 @@ public class TrialEndPanelAnimationCtrl : MonoBehaviour
     public Image title;
     public RectTransform nextPanel;
     public CanvasGroup content;
+
+    private Vector3 ogScale;
     public void PlayTrialCompleteEnterAnimation()
     {
         gameObject.SetActive(true);
         Color finalColor = scrim.color;
         scrim.color = Color.clear;
         scrim.DOColor(finalColor, .5f);
-
+        ogScale = nextPanel.localScale;
         title.transform.localScale = Vector3.zero;
         Sequence seq = DOTween.Sequence();
         seq.Append(title.transform.DOScale(Vector3.one, 1f));
@@ -35,8 +37,8 @@ public class TrialEndPanelAnimationCtrl : MonoBehaviour
     {
         nextPanel.localScale = Vector3.one * .1f;
         Sequence panelSeq = DOTween.Sequence();
-        panelSeq.Append(nextPanel.DOScaleX(1f, .4f));
-        panelSeq.Append(nextPanel.DOScaleY(1f, .4f));
+        panelSeq.Append(nextPanel.DOScaleX(ogScale.x, .4f));
+        panelSeq.Append(nextPanel.DOScaleY(ogScale.y, .4f));
         panelSeq.Append(content.DOFade(1f, .2f));
         panelSeq.Play();
     }
