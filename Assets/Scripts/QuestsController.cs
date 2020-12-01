@@ -181,7 +181,8 @@ public class QuestsController : MonoBehaviour
             {
                 QuestData qData = CreateRandomQuest();
                 if (!questList.Contains(qData.questType))
-                {
+                { 
+                    questList.Add(qData.questType);
                     qDataList.Add(qData);
                     trialDifficulty -= 3;
                 }
@@ -198,25 +199,25 @@ public class QuestsController : MonoBehaviour
         // Debug.Log("Creating Quest of diff: " + questDifficulty);
         // trialDifficulty -= questDifficulty;
         // All vowels, D, G, H, L, N, M, P, R, S*(easiest), T
-        List<string> specificLetters = new List<string>(){ "D", "G", "H", "L", "N", "M", "P", "R", "S", "T" };
+        List<string> specificLetters = new List<string>(){ "A", "E", "I", "O", "D", "G", "H", "L", "N", "M", "P", "R", "S", "T" };
         QuestType qType = (QuestType)Random.Range(0, 5);
         QuestData qData = new QuestData(qType, Random.Range(1, 4), Random.Range(2, 5));
         switch(qType)
         {
             case QuestType.exactLength:
-                qData = new QuestData(qType, Random.Range(1, 4), Random.Range(2, 5));
+                qData = new QuestData(qType, Random.Range(3, 10), Random.Range(2, 5));
                 break;
             case QuestType.minimumLength:
-                qData = new QuestData(qType, Random.Range(1, 4), Random.Range(3, 6));
+                qData = new QuestData(qType, Random.Range(3, 10), Random.Range(3, 6));
                 break;
             case QuestType.specificLetter:
-                qData = new QuestData(qType, Random.Range(2, 4), 0, specificLetters[Random.Range(0, specificLetters.Count)]);
+                qData = new QuestData(qType, Random.Range(2, 5), 0, specificLetters[Random.Range(0, specificLetters.Count)]);
                 break;
             case QuestType.vowelWord:
-                qData = new QuestData(qType, Random.Range(2, 4), 0, "");
+                qData = new QuestData(qType, Random.Range(4, 10), 0, "");
                 break;
             case QuestType.twoVowelWord:
-                qData = new QuestData(qType, Random.Range(2, 4), 0, "");
+                qData = new QuestData(qType, Random.Range(4, 10), 0, "");
                 break;
         }
         return qData;

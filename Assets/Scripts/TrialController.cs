@@ -10,6 +10,8 @@ public class TrialController : MonoBehaviour
 {
     public TextMeshProUGUI currentWordText;
 
+    public PurseController purseController;
+
     public LetterTileController tilePrefab;
     public Transform tileGroupParent;
     public PowerupsPanelController powerupsPanelController;
@@ -30,6 +32,7 @@ public class TrialController : MonoBehaviour
     public void BeginTrial()
     {
         InitializeLetterBoard();
+        purseController.Init(gameController.rVController.RequestAd);
         currentWordText.text = "";
         questsController.BeginTrial();
         trialStartTime = Time.time;

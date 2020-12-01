@@ -9,7 +9,7 @@ public class RVController : MonoBehaviour, IUnityAdsListener {
     public MovingRVButton rvButtonPrefab;
     public Transform rvBubbleParent;
 
-    private PowerupType rewardPowerupType = PowerupType.NewBoard;
+    private PowerupType rewardPowerupType = PowerupType.CoinsSmall;
 
     private float lifetimeGameSeconds;
     private float timeLastSurfacedAdOffer;
@@ -34,7 +34,7 @@ public class RVController : MonoBehaviour, IUnityAdsListener {
             if (Time.time - timeLastSurfacedAdOffer > 60f)
             {
                 timeLastSurfacedAdOffer = Time.time;
-                SurfaceRVOption(PowerupType.NewBoard);
+                SurfaceRVOption(PowerupType.CoinsSmall);
             }
         }
     }
@@ -97,6 +97,10 @@ public class RVController : MonoBehaviour, IUnityAdsListener {
         if (rewardPowerupType == PowerupType.NewBoard)
         {
             powerupsPanel.AddNewBoardPowerup();
+        }
+        else if(rewardPowerupType == PowerupType.CoinsSmall)
+        {
+            MoneyController.ChangeMoney(100);
         }
     }
 

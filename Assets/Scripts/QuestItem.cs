@@ -208,7 +208,7 @@ public class QuestItem : MonoBehaviour
 
     private void UpdateText()
     {
-        goalProgressText.text = (questTotalWords-currentCount).ToString() + " left";
+        goalProgressText.text = (questTotalWords-currentCount).ToString() + " more";
     }
 
     public void PlayProgressMadeAnimation()

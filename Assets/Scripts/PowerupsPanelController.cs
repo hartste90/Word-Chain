@@ -5,6 +5,10 @@ using TMPro;
 public enum PowerupType
 {
     NewBoard = 1,
+    CoinsSmall = 2,
+    CoinsMedium = 3,
+    CoinsLarge = 4,
+    CoinsHuge = 5
 }
 public class PowerupsPanelController : MonoBehaviour
 {

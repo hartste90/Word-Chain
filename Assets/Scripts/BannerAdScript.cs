@@ -8,7 +8,7 @@ public class BannerAdScript : MonoBehaviour {
     public bool testMode = true;
 
     void Start () {
-        // StartCoroutine (ShowBannerWhenReady ());
+        StartCoroutine(ShowBannerWhenReady());
     }
 
     IEnumerator ShowBannerWhenReady () {

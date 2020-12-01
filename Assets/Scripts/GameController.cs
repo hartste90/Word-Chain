@@ -54,6 +54,7 @@ public class GameController : MonoBehaviour
     {
         InitializeSDKs();
         InitializeDictionary();
+        InitializeControllers();
         SetControllerCallbacks();
         BeginTrial();
 
@@ -64,6 +65,11 @@ public class GameController : MonoBehaviour
         //ads
         InitializeAdsSDK();
         
+    }
+
+    private void InitializeControllers()
+    {
+        //MoneyController.Init()
     }
 
     private void InitializeAdsSDK()
