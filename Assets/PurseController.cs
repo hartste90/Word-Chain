@@ -4,16 +4,22 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.Events;
+using DG.Tweening;
 
 public class PurseController : MonoBehaviour
 {
     public BuyCoinsButtonController buyCoinsButton;
     public TextMeshProUGUI coinsLabel;
 
-    public void Init(UnityAction addCoinsButtonPressedCallbackSet)
+    private Vector3 ogScale;
+    private string ctaBumpId = "PurseBumpCTA";
+
+    public void Init(UnityAction<PowerupType> addCoinsButtonPressedCallbackSet)
     {
         buyCoinsButton.SetPressedCallback(addCoinsButtonPressedCallbackSet);
+        ogScale = transform.localScale;
         MoneyController.onMoneyChanged += UpdateCoins;
+        MoneyController.onCoinAnimationComplete += PlayCTABump;
         UpdateCoins(MoneyController.GetCurrentMoney());
     }
 
@@ -25,5 +31,12 @@ public class PurseController : MonoBehaviour
     private void OnDestroy()
     {
         MoneyController.onMoneyChanged -= UpdateCoins;
+    }
+
+    public void PlayCTABump()
+    {
+        DOTween.Kill(ctaBumpId);
+        transform.localScale = ogScale;
+        transform.DOPunchScale(Vector3.one * .2f, .2f).SetId(ctaBumpId);
     }
 }

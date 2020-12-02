@@ -9,9 +9,10 @@ public class WatchRVPanelController : MonoBehaviour
 
     private PowerupType latestCoinPackageType;
 
-    public void Show()
+    public void Show(PowerupType type)
     {
-        panelText.text = "Watch ad to claim <sprite=0>x" + 100 + "?";
+        panelText.text = "Watch ad to claim <sprite=0>x" + GetCoinAmountForPackageSize(type) + "?";
+        latestCoinPackageType = type;
         gameObject.SetActive(true);
     }
 
@@ -19,7 +20,7 @@ public class WatchRVPanelController : MonoBehaviour
     {
         PowerupType packageSize = GetPackageTypeFromCoinsNeed(coinsNeeded);
         panelText.text = "Not enough coins\nWatch ad to claim <sprite=0>x" + GetCoinAmountForPackageSize(packageSize) + "?";
-        latestCoinPackageType = GetPackageTypeFromCoinsNeed(coinsNeeded);
+        latestCoinPackageType = packageSize;
         gameObject.SetActive(true);
     }
 

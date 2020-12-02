@@ -29,6 +29,7 @@ public class MoneyController : MonoBehaviour
 
     public CoinDooberController coinDooberPrefab;
     public static UnityAction<int> onMoneyChanged;
+    public static UnityAction onCoinAnimationComplete;
 
 
     public static int GetCurrentMoney()
@@ -94,8 +95,9 @@ public class MoneyController : MonoBehaviour
     private void OnCoinDooberHitPurse(int coinValue)
     {
         ChangeMoney(coinValue);
-    }
+        onCoinAnimationComplete?.Invoke();
 
+    }
     public static void SetMoney(int moneyToSet = 0)
     { 
         PlayerPrefs.SetInt(PLAYER_MONEY_KEY, moneyToSet);

@@ -5,14 +5,14 @@ using UnityEngine.Events;
 
 public class BuyCoinsButtonController : MonoBehaviour
 {
-    UnityAction pressedCallback;
-    public void SetPressedCallback(UnityAction callbackSet)
+    UnityAction<PowerupType> pressedCallback;
+    public void SetPressedCallback(UnityAction<PowerupType> callbackSet)
     {
         pressedCallback = callbackSet;
     }
 
     public void OnPressed()
     {
-        pressedCallback?.Invoke();
+        pressedCallback?.Invoke(PowerupType.CoinsSmall);
     }
 }

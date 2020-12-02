@@ -16,15 +16,15 @@ public class MovingRVButton : MonoBehaviour
     private float maxLifeTime = 50f;
     private float currentLifeTime;
     private float birthTime;
-    private UnityEvent onPressedCallback = new UnityEvent();
+    private UnityAction<PowerupType> onPressedCallback;
     private UnityEvent onDestroyedCallback  = new UnityEvent();
 
 
 
 
-    public void Initialize(PowerupType powerupType, UnityAction pressedCallbackSet, UnityAction destroyedCallbackSet)
+    public void Initialize(PowerupType powerupType, UnityAction<PowerupType> pressedCallbackSet, UnityAction destroyedCallbackSet)
     {
-        onPressedCallback.AddListener(pressedCallbackSet);
+        onPressedCallback += pressedCallbackSet;
         onDestroyedCallback.AddListener(destroyedCallbackSet);
         birthTime = Time.time;
         SetImage(powerupType);
@@ -82,7 +82,7 @@ public class MovingRVButton : MonoBehaviour
     public void OnButtonPressed()
     {
         PlayBubbleOutAnimation();
-        onPressedCallback?.Invoke();
+        onPressedCallback?.Invoke(PowerupType.CoinsLarge);
     }
 
     private void SetImage(PowerupType powerupType)

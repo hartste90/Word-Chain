@@ -15,7 +15,8 @@ public class RequestAdButtonController : MonoBehaviour
 
     public void OnRequestAdButtonPressed()
     {
-        rVController.RequestAd();
+        Debug.LogError("This button has no effect");
+        //rVController.RequestAd();
     }
 
 }

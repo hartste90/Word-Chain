@@ -34,7 +34,7 @@ public class RVController : MonoBehaviour, IUnityAdsListener {
             if (Time.time - timeLastSurfacedAdOffer > 60f)
             {
                 timeLastSurfacedAdOffer = Time.time;
-                SurfaceRVOption(PowerupType.CoinsSmall);
+                SurfaceRVOption(PowerupType.CoinsMedium);
             }
         }
     }
@@ -96,15 +96,16 @@ public class RVController : MonoBehaviour, IUnityAdsListener {
 
 
 
-    public void RequestAd()
+    public void RequestAd(PowerupType type)
     {
         Time.timeScale = 0f;
-        watchRVPanelController.Show();
+        watchRVPanelController.Show(type);
     }
 
     private void RewardForAdSuccess()
     {
-        MoneyController.ChangeMoney(WatchRVPanelController.GetCoinAmountForPackageSize(rewardPowerupType));
+        Vector3 centerScreen = Camera.main.ViewportToScreenPoint(Vector3.one * .5f);
+        MoneyController.AwardCoins(new Vector2(centerScreen.x, centerScreen.y), WatchRVPanelController.GetCoinAmountForPackageSize(rewardPowerupType), Random.Range(15,25));
     }
 
     public void OnUnityAdsDidError (string message) {
