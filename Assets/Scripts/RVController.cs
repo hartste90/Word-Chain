@@ -48,10 +48,15 @@ public class RVController : MonoBehaviour, IUnityAdsListener {
     {
         if (Advertisement.IsReady())
         {
-            rewardPowerupType = powerupType;
+            SetPowerupType(powerupType);
             currentOffer = Instantiate<MovingRVButton>(rvButtonPrefab, rvBubbleParent);
             currentOffer.Initialize(rewardPowerupType, RequestAd, HandleRVRequestDestroyed);
         }
+    }
+
+    public void SetPowerupType(PowerupType powerupTypeSet)
+    {
+        rewardPowerupType = powerupTypeSet;
     }
 
     public void DestroyCurrentOffer()
@@ -99,14 +104,7 @@ public class RVController : MonoBehaviour, IUnityAdsListener {
 
     private void RewardForAdSuccess()
     {
-        if (rewardPowerupType == PowerupType.NewBoard)
-        {
-            powerupsPanel.AddNewBoardPowerup();
-        }
-        else if(rewardPowerupType == PowerupType.CoinsSmall)
-        {
-            MoneyController.ChangeMoney(100);
-        }
+        MoneyController.ChangeMoney(WatchRVPanelController.GetCoinAmountForPackageSize(rewardPowerupType));
     }
 
     public void OnUnityAdsDidError (string message) {

@@ -7,16 +7,51 @@ public class WatchRVPanelController : MonoBehaviour
 {
     public TextMeshProUGUI panelText;
 
+    private PowerupType latestCoinPackageType;
+
     public void Show()
     {
-        panelText.text = "Watch ad to claim <sprite=0>x100?";
+        panelText.text = "Watch ad to claim <sprite=0>x" + 100 + "?";
         gameObject.SetActive(true);
     }
 
     public void ShowNeedCoins(int coinsNeeded)
     {
-        panelText.text = "Need more coins\nWatch ad to claim <sprite=0>x300?";
+        PowerupType packageSize = GetPackageTypeFromCoinsNeed(coinsNeeded);
+        panelText.text = "Not enough coins\nWatch ad to claim <sprite=0>x" + GetCoinAmountForPackageSize(packageSize) + "?";
+        latestCoinPackageType = GetPackageTypeFromCoinsNeed(coinsNeeded);
         gameObject.SetActive(true);
+    }
+
+    public static PowerupType GetPackageTypeFromCoinsNeed(int coinsNeeded)
+    {
+        if (coinsNeeded <= 100)
+            return PowerupType.CoinsSmall;
+        else if (coinsNeeded <= 300)
+            return PowerupType.CoinsMedium;
+        else if (coinsNeeded <= 750)
+            return PowerupType.CoinsLarge;
+        else if (coinsNeeded <= 1350)
+            return PowerupType.CoinsHuge;
+        else
+            return PowerupType.CoinsSmall;
+    }
+
+    public static int GetCoinAmountForPackageSize(PowerupType type)
+    {
+        switch(type)
+        {
+            case PowerupType.CoinsSmall:
+                return 100;
+            case PowerupType.CoinsMedium:
+                return 300;
+            case PowerupType.CoinsLarge:
+                return 750;
+            case PowerupType.CoinsHuge:
+                return 1350;
+            default:
+                return 0;
+        }
     }
 
     public void Hide()
@@ -34,6 +69,7 @@ public class WatchRVPanelController : MonoBehaviour
     {
         //play ad
         string myPlacementId = "rewardedVideo";
+        GameController.Instance.rVController.SetPowerupType(latestCoinPackageType);
         Advertisement.Show(myPlacementId);
 
         Hide();   

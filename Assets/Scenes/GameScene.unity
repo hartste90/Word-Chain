@@ -967,6 +967,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3196f45cec3194a54b906343b4dd8f2c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  coinDooberPrefab: {fileID: 3444321111010753521, guid: 8e250295900c64e929dc459308dc47b1,
+    type: 3}
 --- !u!1 &452795154
 GameObject:
   m_ObjectHideFlags: 0

@@ -103,7 +103,7 @@ public class TrialController : MonoBehaviour
 
     public void Backspace()
     {
-
+        //MoneyController.AwardCoins(new List<Vector2>() { Vector2.zero }, 15); //Testing doobers - 
         if (usedTileList.Count > 0 && currentWordText.text.Length > 0)
         {
             int idx = usedTileList.Count-1;
@@ -134,6 +134,10 @@ public class TrialController : MonoBehaviour
         bool isValid = !wordHasBeenUsed && wordIsInDictionary;
         if (isValid)
         {
+            if (word.Length >= GameController.LONG_WORD_CHARACTER_REQUIREMENT)
+            {
+                //ToasterController.ShowLongWordToaster();
+            }
             gameController.OnSubmitButtonPressed(word);
             Submit(word);
         } 
@@ -204,7 +208,25 @@ public class TrialController : MonoBehaviour
 
     public void OnShuffleButtonPressed()
     {
-        ShuffleTiles();
+        //if they have enough coins, remove coins, recycle board
+        if (MoneyController.GetCurrentMoney() >= SHUFFLE_LETTERS_COST)
+        {
+            MoneyController.ChangeMoney(-SHUFFLE_LETTERS_COST);
+            ShuffleTiles();
+        }
+        else
+        {
+            if (gameController.rVController.IsAdReady())
+            {
+                int defecit = SHUFFLE_LETTERS_COST - MoneyController.GetCurrentMoney();
+                gameController.rVController.watchRVPanelController.ShowNeedCoins(defecit);
+            }
+            else
+            {
+                Debug.LogError("Ad not available to watch, show toaster for need more coins");
+                //show toaster for need more coins
+            }
+        }
     }
     
     public void ShuffleTiles()
@@ -241,20 +263,15 @@ public class TrialController : MonoBehaviour
         {
             if (gameController.rVController.IsAdReady())
             {
-                Debug.Log("Offering ad");
                 int defecit = RECYCLE_LETTERS_COST - MoneyController.GetCurrentMoney();
                 gameController.rVController.watchRVPanelController.ShowNeedCoins(defecit);
             }
             else
             {
-                Debug.Log("Ad not available to watch, show toaster for need more coins");
+                Debug.LogError("Ad not available to watch, show toaster for need more coins");
                 //show toaster for need more coins
             }
-        }
-        //if they dont have enough coins, offer to show an add for that amount of coins
-            //if ad is ready to be shown
-                //
-        
+        }        
     }
 
     public void RecycleBoard()

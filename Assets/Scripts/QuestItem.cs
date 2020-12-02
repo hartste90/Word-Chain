@@ -220,10 +220,10 @@ public class QuestItem : MonoBehaviour
         seq.Append(transform.DOScale(Vector3.one * 1.3f, .2f));
         float fillAmt = (float)currentCount/(float)questTotalWords + (1f/(float) questTotalWords / 4f);
         seq.Append(fillImage.DOFillAmount(fillAmt, .2f));
-        seq.Append(goalProgressText.transform.DOLocalRotate(Vector3.up * 90f, .5f).SetEase(Ease.InSine));
+        seq.Append(goalProgressText.transform.DOLocalRotate(Vector3.up * 90f, .25f).SetEase(Ease.InSine));
         seq.AppendCallback(UpdateText);
         seq.AppendCallback(() => goalProgressText.transform.localRotation = Quaternion.Euler(0,-90f,0));
-        seq.Append(goalProgressText.transform.DOLocalRotate(Vector3.up * 0f, .5f).SetEase(Ease.OutSine));
+        seq.Append(goalProgressText.transform.DOLocalRotate(Vector3.up * 0f, .25f).SetEase(Ease.OutSine));
         seq.Append(transform.DOScale(Vector3.one, .2f));
         seq.Play();
     }
@@ -244,7 +244,14 @@ public class QuestItem : MonoBehaviour
         seq.AppendCallback(() => statusCompleteObj.SetActive(true));
         seq.Append(statusCompleteObj.transform.DOShakeScale(.2f));
         seq.Append(transform.DOScale(Vector3.one, .2f));
+        seq.OnComplete(AwardCoins);
         seq.Play();
+    }
+
+    public void AwardCoins()
+    {
+        int reward = questTotalWords;
+        MoneyController.AwardCoins(transform.position, reward, reward - 1);
     }
  
 }

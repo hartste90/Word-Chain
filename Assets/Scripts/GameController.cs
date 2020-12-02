@@ -38,6 +38,7 @@ public class GameController : MonoBehaviour
     */
 
     public TrialController trialPrefab;
+    public static int LONG_WORD_CHARACTER_REQUIREMENT = 6;
 
     public Transform trialParent;
     public BackgroundController backgroundController;
@@ -161,6 +162,12 @@ public class GameController : MonoBehaviour
     {
         inputBlocker.SetActive(false);
     }
-    
+
+    public static Vector2 GetPurseScreenPosition()
+    {
+        return Instance.trialController.purseController.transform.position;
+    }
+
+
 
 }
