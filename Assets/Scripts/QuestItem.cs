@@ -75,7 +75,7 @@ public class QuestItem : MonoBehaviour
     {
         questType = QuestType.specificLetter;
         requiredLetter = letterRequiredSet;
-        goalNameText.text = letterRequiredSet + "- words";
+        goalNameText.text = "Use \"" + letterRequiredSet + "\"";
     }
 
     public void SetVowelType()

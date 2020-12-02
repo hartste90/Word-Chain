@@ -53,7 +53,7 @@ public class PowerupsPanelController : MonoBehaviour
     {
         if (powerupType == PowerupType.NewBoard)
         {
-            GameController.Instance.RecycleBoard();
+            //GameController.Instance.RecycleBoard();
         }
     }
 }

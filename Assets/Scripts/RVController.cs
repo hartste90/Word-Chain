@@ -39,6 +39,11 @@ public class RVController : MonoBehaviour, IUnityAdsListener {
         }
     }
 
+    public bool IsAdReady()
+    {
+        return Advertisement.IsReady();
+    }
+
     public void SurfaceRVOption(PowerupType powerupType)
     {
         if (Advertisement.IsReady())

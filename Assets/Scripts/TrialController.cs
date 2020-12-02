@@ -8,6 +8,10 @@ using GameAnalyticsSDK;
 
 public class TrialController : MonoBehaviour
 {
+
+    const int SHUFFLE_LETTERS_COST = 20;
+    const int RECYCLE_LETTERS_COST = 300;
+
     public TextMeshProUGUI currentWordText;
 
     public PurseController purseController;
@@ -198,6 +202,11 @@ public class TrialController : MonoBehaviour
         // gameController.EnableInput();
     }
 
+    public void OnShuffleButtonPressed()
+    {
+        ShuffleTiles();
+    }
+    
     public void ShuffleTiles()
     {
         if (positionsList == null)
@@ -218,6 +227,34 @@ public class TrialController : MonoBehaviour
             tileList[counter].transform.DOMove(targetPos, .2f);
             counter++;
         }
+    }
+
+    public void OnRecycleButtonPressed()
+    {
+        //if they have enough coins, remove coins, recycle board
+        if (MoneyController.GetCurrentMoney() >= RECYCLE_LETTERS_COST)
+        {
+            MoneyController.ChangeMoney(-RECYCLE_LETTERS_COST);
+            RecycleBoard();
+        }
+        else
+        {
+            if (gameController.rVController.IsAdReady())
+            {
+                Debug.Log("Offering ad");
+                int defecit = RECYCLE_LETTERS_COST - MoneyController.GetCurrentMoney();
+                gameController.rVController.watchRVPanelController.ShowNeedCoins(defecit);
+            }
+            else
+            {
+                Debug.Log("Ad not available to watch, show toaster for need more coins");
+                //show toaster for need more coins
+            }
+        }
+        //if they dont have enough coins, offer to show an add for that amount of coins
+            //if ad is ready to be shown
+                //
+        
     }
 
     public void RecycleBoard()

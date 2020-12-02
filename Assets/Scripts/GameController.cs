@@ -141,16 +141,16 @@ public class GameController : MonoBehaviour
         backgroundController.SpawnWord(word);
     }
 
-    public void OnShuffleButtonPressed()
-    {
-        trialController.ShuffleTiles();
-    }
+    //public void OnShuffleButtonPressed()
+    //{
+    //    trialController.ShuffleTiles();
+    //}
 
 
-    public void RecycleBoard()
-    {
-        trialController.RecycleBoard();
-    }
+    //public void RecycleBoard()
+    //{
+    //    trialController.RecycleBoard();
+    //}
 
     public void DisableInput()
     {

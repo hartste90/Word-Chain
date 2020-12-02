@@ -3465,7 +3465,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 6488796377330565257}
-        m_MethodName: ShuffleTiles
+        m_MethodName: OnShuffleButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -7671,8 +7671,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1966695265452295476}
-        m_MethodName: OnNewBoardButtonPressed
+      - m_Target: {fileID: 6488796377330565257}
+        m_MethodName: OnRecycleButtonPressed
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
