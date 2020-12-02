@@ -250,8 +250,8 @@ public class QuestItem : MonoBehaviour
 
     public void AwardCoins()
     {
-        int reward = questTotalWords;
-        MoneyController.AwardCoins(transform.position, reward, reward - 1);
+        int reward = questTotalWords * 2;
+        MoneyController.AwardCoins(transform.position, reward, questTotalWords);
     }
  
 }

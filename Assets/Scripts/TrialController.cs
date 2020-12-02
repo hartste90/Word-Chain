@@ -36,6 +36,7 @@ public class TrialController : MonoBehaviour
     public void BeginTrial()
     {
         InitializeLetterBoard();
+        MoneyController.Instance.OnTrialBegin();
         purseController.Init(gameController.rVController.RequestAd);
         currentWordText.text = "";
         questsController.BeginTrial();
@@ -171,8 +172,21 @@ public class TrialController : MonoBehaviour
 
     private void ClearTilesAndWord()
     {
+        CreateCoinsForLetters();
         ClearTiles();
         ClearWord();
+    }
+
+    private void CreateCoinsForLetters()
+    {
+        foreach(LetterTileController tile in usedTileList)
+        {
+            if (tile.hasCoinValue)
+            {
+                MoneyController.Instance.OnCoinTileUsed();
+                MoneyController.AwardCoins(tile.GetCoinPosition(), 1, 1);
+            }
+        }
     }
 
     private void ClearTiles()
@@ -278,6 +292,7 @@ public class TrialController : MonoBehaviour
     {
         ClearWord();
         ExitTiles(tileList);
+        MoneyController.Instance.ResetCurrentCoinLetterCount();
         //get rid of old tiles
         for(int i = 0; i < tileList.Count; i ++)
         {

@@ -31,6 +31,9 @@ public class MoneyController : MonoBehaviour
     public static UnityAction<int> onMoneyChanged;
     public static UnityAction onCoinAnimationComplete;
 
+    private int currentCoinLetterCount = 0;
+    private List<string> coinLetters = new List<string>() { "Z", "X", "Qu", "V", "B", "J", "K", "W" };
+
 
     public static int GetCurrentMoney()
     {
@@ -103,6 +106,34 @@ public class MoneyController : MonoBehaviour
         PlayerPrefs.SetInt(PLAYER_MONEY_KEY, moneyToSet);
         onMoneyChanged?.Invoke(moneyToSet);
     }
+
+    public static bool ShouldBeCoinLetter (string letterText)
+    {
+        //could be coin if (difficult letter / havent had one in a while)
+        Debug.Log("Current coin letters: " + Instance.currentCoinLetterCount);
+        if (Instance.coinLetters.Contains(letterText) && Instance.currentCoinLetterCount < 2)
+        {
+            Instance.currentCoinLetterCount++;
+            return true;
+        }
+        return false;
+    }
+
+    public void ResetCurrentCoinLetterCount()
+    {
+        currentCoinLetterCount = 0;
+    }
+
+    public void OnCoinTileUsed()
+    {
+        currentCoinLetterCount--;
+    }
+
+    public void OnTrialBegin()
+    {
+        ResetCurrentCoinLetterCount();
+    }
+
 
 
 }

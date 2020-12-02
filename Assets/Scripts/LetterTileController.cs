@@ -15,11 +15,14 @@ public class LetterTileController : MonoBehaviour
     public Color availableColor;
     public Color usedColor;
     public int diceIdx;
+    public Image coinImage;
 
     private Animation anim;
 
     public UnityAction<LetterTileController> pressedCallback;
     public Action enterCallback;
+
+    public bool hasCoinValue = false;
 
     void Awake()
     {
@@ -35,6 +38,9 @@ public class LetterTileController : MonoBehaviour
     public void SetTileText(string textSet)
     {
         letterText.text = textSet;
+        hasCoinValue = MoneyController.ShouldBeCoinLetter(textSet);
+        coinImage.gameObject.SetActive(hasCoinValue);
+
     }
 
     public void SetTileBackgroundColor(Color color)
@@ -127,6 +133,11 @@ public class LetterTileController : MonoBehaviour
         enterCallback?.Invoke();
     }
 
+    public Vector2 GetCoinPosition()
+    {
+        return coinImage.transform.position;
+    }
+
     private void PlayExitAnimation()
     {
         StartCoroutine(PlayTileExitImpl());
@@ -138,9 +149,4 @@ public class LetterTileController : MonoBehaviour
         yield return new WaitForSeconds(delay);
         anim.Play("TileExit");
     }
-
-    // public void OnTileExitAnimationComplete()
-    // {
-
-    // }
 }
