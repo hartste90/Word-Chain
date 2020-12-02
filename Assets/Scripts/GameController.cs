@@ -81,7 +81,7 @@ public class GameController : MonoBehaviour
         string gameId = "3699029";
 #endif
 
-        bool testMode = true;
+        bool testMode = Debug.isDebugBuild;
         Advertisement.Initialize (gameId, testMode);
     }
 
