@@ -275,15 +275,14 @@ public class TrialController : MonoBehaviour
         }
         else
         {
-            if (gameController.rVController.IsAdReady())
+            if (false)//gameController.rVController.IsAdReady())
             {
                 int defecit = RECYCLE_LETTERS_COST - MoneyController.GetCurrentMoney();
                 gameController.rVController.watchRVPanelController.ShowNeedCoins(defecit);
             }
             else
             {
-                Debug.LogError("Ad not available to watch, show toaster for need more coins");
-                //show toaster for need more coins
+                ToasterPanelController.ShowToaster("You don't have enough coins for that!");
             }
         }        
     }
