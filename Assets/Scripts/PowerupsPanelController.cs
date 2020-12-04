@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
-public enum PowerupType
+public enum CurrencyAmount
 {
     NewBoard = 1,
     CoinsSmall = 2,
@@ -29,7 +29,7 @@ public class PowerupsPanelController : MonoBehaviour
             PlayerPrefs.SetInt("NewBoardPowerups", numNewBoard);
             newBoardButton.SetCounterText(numNewBoard.ToString());
 
-            UsePowerup(PowerupType.NewBoard);
+            UsePowerup(CurrencyAmount.NewBoard);
         }
         else
         {
@@ -49,9 +49,9 @@ public class PowerupsPanelController : MonoBehaviour
 
     }
 
-    private void UsePowerup(PowerupType powerupType)
+    private void UsePowerup(CurrencyAmount powerupType)
     {
-        if (powerupType == PowerupType.NewBoard)
+        if (powerupType == CurrencyAmount.NewBoard)
         {
             //GameController.Instance.RecycleBoard();
         }

@@ -14,7 +14,7 @@ public class PurseController : MonoBehaviour
     private Vector3 ogScale;
     private string ctaBumpId = "PurseBumpCTA";
 
-    public void Init(UnityAction<PowerupType> addCoinsButtonPressedCallbackSet)
+    public void Init(UnityAction<CurrencyAmount, AdOfferSource> addCoinsButtonPressedCallbackSet)
     {
         buyCoinsButton.SetPressedCallback(addCoinsButtonPressedCallbackSet);
         ogScale = transform.localScale;

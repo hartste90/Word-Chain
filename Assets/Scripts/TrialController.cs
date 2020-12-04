@@ -41,6 +41,7 @@ public class TrialController : MonoBehaviour
         currentWordText.text = "";
         questsController.BeginTrial();
         trialStartTime = Time.time;
+        AnalyticsController.OnBeginTrial();
 
     }
 
@@ -128,11 +129,15 @@ public class TrialController : MonoBehaviour
 
     public void OnSubmitButtonPressed()
     {
-        GameAnalytics.NewDesignEvent ("Analytics Test Event Name", UnityEngine.Random.Range(.1f, .9f));
         string word = currentWordText.text;
         bool wordHasBeenUsed = HasWordBeenUsed();
         bool wordIsInDictionary = IsWordInDictionary(word);
-        bool isValid = !wordHasBeenUsed && wordIsInDictionary;
+        bool wordIsLongEnough = word.Length >= 2;
+        if (!wordIsLongEnough && word.Length != 0)
+        {
+            ToasterPanelController.ShowToaster("Words must have at least 2 letters");
+        }
+        bool isValid = !wordHasBeenUsed && wordIsInDictionary && wordIsLongEnough;
         if (isValid)
         {
             if (word.Length >= GameController.LONG_WORD_CHARACTER_REQUIREMENT)
@@ -166,7 +171,8 @@ public class TrialController : MonoBehaviour
 
     private void Submit(string word)
     {
-        questsController.TrackCompletedWord(word);
+        bool isWordForQuest = questsController.TrackCompletedWord(word);
+        AnalyticsController.OnWordSubmitted(word, isWordForQuest);
         ClearTilesAndWord();        
     }
 
@@ -183,6 +189,7 @@ public class TrialController : MonoBehaviour
         {
             if (tile.hasCoinValue)
             {
+                AnalyticsController.OnUseCoinLetter();
                 MoneyController.Instance.OnCoinTileUsed();
                 MoneyController.AwardCoins(tile.GetCoinPosition(), 1, 1);
             }
@@ -227,13 +234,15 @@ public class TrialController : MonoBehaviour
         {
             MoneyController.ChangeMoney(-SHUFFLE_LETTERS_COST);
             ShuffleTiles();
+            AnalyticsController.OnUsePowerup(PowerupType.shuffle);
         }
         else
         {
             if (gameController.rVController.IsAdReady())
             {
                 int defecit = SHUFFLE_LETTERS_COST - MoneyController.GetCurrentMoney();
-                gameController.rVController.watchRVPanelController.ShowNeedCoins(defecit);
+                AnalyticsController.OnFailedPowerup(PowerupType.shuffle);
+                gameController.rVController.watchRVPanelController.ShowNeedCoins(defecit, AdOfferSource.fillDefecitForShuffle);
             }
             else
             {
@@ -272,13 +281,15 @@ public class TrialController : MonoBehaviour
         {
             MoneyController.ChangeMoney(-RECYCLE_LETTERS_COST);
             RecycleBoard();
+            AnalyticsController.OnUsePowerup(PowerupType.recycle);
         }
         else
         {
-            if (false)//gameController.rVController.IsAdReady())
+            if (gameController.rVController.IsAdReady())
             {
                 int defecit = RECYCLE_LETTERS_COST - MoneyController.GetCurrentMoney();
-                gameController.rVController.watchRVPanelController.ShowNeedCoins(defecit);
+                AnalyticsController.OnFailedPowerup(PowerupType.recycle);
+                gameController.rVController.watchRVPanelController.ShowNeedCoins(defecit, AdOfferSource.fillDefecitForShuffle);
             }
             else
             {
@@ -333,7 +344,7 @@ public class TrialController : MonoBehaviour
 
     private void ExitTrial()
     {
-        GameAnalytics.NewDesignEvent ("trialComplete", Time.time-trialStartTime);
+        AnalyticsController.OnCompleteTrial();
         gameController.EndTrial();
     }
 

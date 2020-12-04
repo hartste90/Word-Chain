@@ -92,12 +92,15 @@ public class QuestsController : MonoBehaviour
             qItem.onQuestCompletedCallback.AddListener(OnQuestCompleted);
     }
 
-    public void TrackCompletedWord(string word)
+    public bool TrackCompletedWord(string word)
     {
+        PlayerPrefs.SetInt(AnalyticsKeys.words_this_session, PlayerPrefs.GetInt(AnalyticsKeys.words_this_session, 0) + 1);
+        bool isWordForQuest = false;
         foreach (QuestItem quest in questItemList)
         {
-            quest.AccountWord(word);
+            isWordForQuest = isWordForQuest || quest.AccountWord(word);
         }
+        return isWordForQuest;
     }
 
     public void OnQuestCompleted()

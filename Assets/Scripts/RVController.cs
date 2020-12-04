@@ -1,6 +1,16 @@
 ﻿using UnityEngine;
 using UnityEngine.Advertisements;
 using UnityEngine.Events;
+using GameAnalyticsSDK;
+
+public enum AdOfferSource
+{
+    purseButton = 0,
+    movingOfferBubble = 1,
+    fillDefecitForRecycle = 2,
+    fillDefecitForShuffle = 3
+}
+
 public class RVController : MonoBehaviour, IUnityAdsListener { 
 
     public PowerupsPanelController powerupsPanel;
@@ -9,11 +19,12 @@ public class RVController : MonoBehaviour, IUnityAdsListener {
     public MovingRVButton rvButtonPrefab;
     public Transform rvBubbleParent;
 
-    private PowerupType rewardPowerupType = PowerupType.CoinsSmall;
+    private CurrencyAmount rewardPowerupType = CurrencyAmount.CoinsSmall;
 
     private float lifetimeGameSeconds;
     private float timeLastSurfacedAdOffer;
     private MovingRVButton currentOffer;
+    private AdOfferSource currentSource;
 
     // Initialize the Ads listener and service:
     void Start () {
@@ -34,9 +45,16 @@ public class RVController : MonoBehaviour, IUnityAdsListener {
             if (Time.time - timeLastSurfacedAdOffer > 60f)
             {
                 timeLastSurfacedAdOffer = Time.time;
-                SurfaceRVOption(PowerupType.CoinsMedium);
+                SurfaceRVOption(CurrencyAmount.CoinsMedium);
             }
         }
+    }
+
+    public void Show(string placementId, AdOfferSource source)
+    {
+        currentSource = source;
+        Advertisement.Show(placementId);
+        GameAnalytics.NewAdEvent(GAAdAction.Show, GAAdType.RewardedVideo, AnalyticsKeys.unitySDK, nameof(currentSource));
     }
 
     public bool IsAdReady()
@@ -44,7 +62,7 @@ public class RVController : MonoBehaviour, IUnityAdsListener {
         return Advertisement.IsReady();
     }
 
-    public void SurfaceRVOption(PowerupType powerupType)
+    public void SurfaceRVOption(CurrencyAmount powerupType)
     {
         if (Advertisement.IsReady())
         {
@@ -54,7 +72,7 @@ public class RVController : MonoBehaviour, IUnityAdsListener {
         }
     }
 
-    public void SetPowerupType(PowerupType powerupTypeSet)
+    public void SetPowerupType(CurrencyAmount powerupTypeSet)
     {
         rewardPowerupType = powerupTypeSet;
     }
@@ -77,11 +95,15 @@ public class RVController : MonoBehaviour, IUnityAdsListener {
     public void OnUnityAdsDidFinish (string placementId, ShowResult showResult) {
         // Define conditional logic for each ad completion status:
         if (showResult == ShowResult.Finished) {
+            GameAnalytics.NewAdEvent(GAAdAction.RewardReceived, GAAdType.RewardedVideo, AnalyticsKeys.unitySDK, nameof(currentSource));
             RewardForAdSuccess();
         } else if (showResult == ShowResult.Skipped) {
             // Do not reward the user for skipping the ad.
+            GameAnalytics.NewAdEvent(GAAdAction.Undefined, GAAdType.RewardedVideo, AnalyticsKeys.unitySDK, nameof(currentSource) + "_SKIPPED");
         } else if (showResult == ShowResult.Failed) {
             Debug.LogWarning ("The ad did not finish due to an error.");
+            GameAnalytics.NewAdEvent(GAAdAction.FailedShow, GAAdType.RewardedVideo, AnalyticsKeys.unitySDK, nameof(currentSource));
+
         }
         Time.timeScale = 1f;
     }
@@ -96,10 +118,17 @@ public class RVController : MonoBehaviour, IUnityAdsListener {
 
 
 
-    public void RequestAd(PowerupType type)
+    public void RequestAd(CurrencyAmount type, AdOfferSource adSource)
     {
-        Time.timeScale = 0f;
-        watchRVPanelController.Show(type);
+        if (IsAdReady())
+        {
+            Time.timeScale = 0f;
+            watchRVPanelController.Show(type, adSource);
+        }
+        else
+        {
+            AnalyticsController.OnAdUnavailable();
+        }
     }
 
     private void RewardForAdSuccess()

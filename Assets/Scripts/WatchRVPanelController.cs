@@ -7,48 +7,51 @@ public class WatchRVPanelController : MonoBehaviour
 {
     public TextMeshProUGUI panelText;
 
-    private PowerupType latestCoinPackageType;
+    private CurrencyAmount latestCoinPackageType;
+    private AdOfferSource source;
 
-    public void Show(PowerupType type)
+    public void Show(CurrencyAmount type, AdOfferSource sourceSet)
     {
+        source = sourceSet;
         panelText.text = "Watch ad to claim <sprite=0>x" + GetCoinAmountForPackageSize(type) + "?";
         latestCoinPackageType = type;
         gameObject.SetActive(true);
     }
 
-    public void ShowNeedCoins(int coinsNeeded)
+    public void ShowNeedCoins(int coinsNeeded, AdOfferSource sourceSet)
     {
-        PowerupType packageSize = GetPackageTypeFromCoinsNeed(coinsNeeded);
+        source = sourceSet;
+        CurrencyAmount packageSize = GetPackageTypeFromCoinsNeed(coinsNeeded);
         panelText.text = "Not enough coins\nWatch ad to claim <sprite=0>x" + GetCoinAmountForPackageSize(packageSize) + "?";
         latestCoinPackageType = packageSize;
         gameObject.SetActive(true);
     }
 
-    public static PowerupType GetPackageTypeFromCoinsNeed(int coinsNeeded)
+    public static CurrencyAmount GetPackageTypeFromCoinsNeed(int coinsNeeded)
     {
         if (coinsNeeded <= 100)
-            return PowerupType.CoinsSmall;
+            return CurrencyAmount.CoinsSmall;
         else if (coinsNeeded <= 300)
-            return PowerupType.CoinsMedium;
+            return CurrencyAmount.CoinsMedium;
         else if (coinsNeeded <= 750)
-            return PowerupType.CoinsLarge;
+            return CurrencyAmount.CoinsLarge;
         else if (coinsNeeded <= 1350)
-            return PowerupType.CoinsHuge;
+            return CurrencyAmount.CoinsHuge;
         else
-            return PowerupType.CoinsSmall;
+            return CurrencyAmount.CoinsSmall;
     }
 
-    public static int GetCoinAmountForPackageSize(PowerupType type)
+    public static int GetCoinAmountForPackageSize(CurrencyAmount type)
     {
         switch(type)
         {
-            case PowerupType.CoinsSmall:
+            case CurrencyAmount.CoinsSmall:
                 return 100;
-            case PowerupType.CoinsMedium:
+            case CurrencyAmount.CoinsMedium:
                 return 300;
-            case PowerupType.CoinsLarge:
+            case CurrencyAmount.CoinsLarge:
                 return 750;
-            case PowerupType.CoinsHuge:
+            case CurrencyAmount.CoinsHuge:
                 return 1350;
             default:
                 return 0;
@@ -64,6 +67,7 @@ public class WatchRVPanelController : MonoBehaviour
     {
         Hide();
         Time.timeScale = 1f;
+        AnalyticsController.OnRejectCoinOffer();
     }
 
     public void OnYesButtonPressed()
@@ -71,7 +75,7 @@ public class WatchRVPanelController : MonoBehaviour
         //play ad
         string myPlacementId = "rewardedVideo";
         GameController.Instance.rVController.SetPowerupType(latestCoinPackageType);
-        Advertisement.Show(myPlacementId);
+        GameController.Instance.rVController.Show(myPlacementId, source);
 
         Hide();   
     }

@@ -4,14 +4,15 @@ using UnityEngine;
 
 public class MinimumQuestItem : QuestItem
 {
-    public override void AccountWord(string word)
+    public override bool AccountWord(string word)
     {
         if (word.Length >= wordLengthTarget)
         {
             currentCount++;
             MarkProgressMade();
-            base.AccountWord(word);
+            return base.AccountWord(word);
         }
+        return false;
         
     }
 

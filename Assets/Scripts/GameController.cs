@@ -48,9 +48,6 @@ public class GameController : MonoBehaviour
 
     public GameObject inputBlocker;
 
-
-    
-
     void Start()
     {
         InitializeSDKs();
@@ -58,6 +55,8 @@ public class GameController : MonoBehaviour
         InitializeControllers();
         SetControllerCallbacks();
         BeginTrial();
+
+
 
     }
 
@@ -170,4 +169,11 @@ public class GameController : MonoBehaviour
 
 
 
+}
+
+public enum PowerupType
+{
+    recycle = 0,
+    shuffle = 1,
+    wildcard = 2
 }

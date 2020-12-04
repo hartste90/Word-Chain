@@ -29,25 +29,22 @@ public class QuestItem : MonoBehaviour
     private float goalCelebrationDelay = 1f;
 
 
-    public virtual void AccountWord(string word)
+    public virtual bool AccountWord(string word)
     {
         switch(questType)
         {
             case QuestType.exactLength:
-                AccountExactLengthQuest(word);
-                break;
+                return AccountExactLengthQuest(word);
             case QuestType.minimumLength:
-                AccountMinimumLengthQuest(word);
-                break;
+                return AccountMinimumLengthQuest(word);
             case QuestType.specificLetter:
-                AccountSpecificLetterQuest(word);
-                break;
+                return AccountSpecificLetterQuest(word);
             case QuestType.vowelWord:
-                AccountVowelQuest(word);
-                break;
+                return AccountVowelQuest(word);
             case QuestType.twoVowelWord:
-                AccountTwoVowelQuest(word);
-                break;
+                return AccountTwoVowelQuest(word);
+            default:
+                return false;
         }
     }
 
@@ -90,35 +87,41 @@ public class QuestItem : MonoBehaviour
         goalNameText.text = "2 vowel words";
     }
 
-    private void AccountExactLengthQuest(string word)
+    private bool AccountExactLengthQuest(string word)
     {
         if (word.Length == wordLengthTarget)
         {
             currentCount++;
             MarkProgressMade();
+            return true;
         }
+        return false;
     }
 
-    private void AccountMinimumLengthQuest(string word)
+    private bool AccountMinimumLengthQuest(string word)
     {
         if (word.Length >= wordLengthTarget)
         {
             currentCount++;
             MarkProgressMade();
+            return true;
         }
+        return false;
     }
 
-    private void AccountSpecificLetterQuest(string word)
+    private bool AccountSpecificLetterQuest(string word)
     {
 
         if (!string.IsNullOrEmpty(requiredLetter) && word.Contains(requiredLetter))
         {
             currentCount++;
             MarkProgressMade();
+            return true;
         }
+        return false;
     }
 
-    private void AccountVowelQuest(string word)
+    private bool AccountVowelQuest(string word)
     {
 
         int vowelIdx = ContainsVowel(word);
@@ -129,11 +132,13 @@ public class QuestItem : MonoBehaviour
             {
                 currentCount++;
                 MarkProgressMade();
+                return true;
             }
         }
+        return false;
     }
 
-    private void AccountTwoVowelQuest(string word)
+    private bool AccountTwoVowelQuest(string word)
     {
         int vowelIdx = ContainsVowel(word);
         if (vowelIdx != -1)
@@ -147,9 +152,11 @@ public class QuestItem : MonoBehaviour
                 {
                     currentCount++;
                     MarkProgressMade();
+                    return true;
                 }
             }
         }
+        return false;
     }
 
     private int ContainsVowel(string word)
