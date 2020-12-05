@@ -49,6 +49,7 @@ public class TrialController : MonoBehaviour
     private void InitializeLetterBoard()
     {
         LetterBasket.Initialize();
+        usedTileList.Clear();
         //destroy placeholder editor tiles
         foreach (Transform child in tileGroupParent)
         {
@@ -339,7 +340,7 @@ public class TrialController : MonoBehaviour
 
     public void HandleAllQuestsCompleted()
     {
-        Invoke(ExitTrial, 2.5f);
+        Invoke(ExitTrial, 5f);
     }
 
     private void ExitTrial()
