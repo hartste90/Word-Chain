@@ -66,26 +66,32 @@ public class TrialController : MonoBehaviour
         {
             LetterTileController tile = Instantiate<LetterTileController>(tilePrefab, tileGroupParent);
             tile.diceIdx = i;
-            string tileTextSet = LetterBasket.RollDiceAtIdx(tile.diceIdx);
-            List<string> options = LetterBasket.GetDiceOptionsAtIdx(tile.diceIdx);
-            List<string> requiredLetters = questsController.GetRequiredLetters();
-            foreach (string letter in requiredLetters)
-            {
-                if(options.Contains(letter))
-                {
-                    if (UnityEngine.Random.Range(0f, 1f) < .75f)
-                    {
-                        tileTextSet = letter;
-                        break;
-                    }
-                }
-            }
-            tile.SetTileText(tileTextSet);
+            string letterToSet = GetNewLetterForTileIdx(tile.diceIdx);
+            tile.SetTileText(letterToSet);
             tile.pressedCallback = OnTilePressed;
             tile.TileEnter();
             tileList.Add(tile);
         }
         Invoke(HandleTrialEnterComplete, .6f);
+    }
+
+    private string GetNewLetterForTileIdx(int diceIdx)
+    {
+        string tileTextSet = LetterBasket.RollDiceAtIdx(diceIdx);
+        List<string> options = LetterBasket.GetDiceOptionsAtIdx(diceIdx);
+        List<string> requiredLetters = questsController.GetRequiredLetters();
+        foreach (string letter in requiredLetters)
+        {
+            if (options.Contains(letter))
+            {
+                if (UnityEngine.Random.Range(0f, 1f) < .75f)
+                {
+                    tileTextSet = letter;
+                    break;
+                }
+            }
+        }
+        return tileTextSet;
     }
 
     private void HandleTrialEnterComplete()
@@ -232,7 +238,8 @@ public class TrialController : MonoBehaviour
 
         foreach(LetterTileController tile in usedTileList)
         {
-            tile.SetTileText(LetterBasket.RollDiceAtIdx(tile.diceIdx));
+            string letterToSet = GetNewLetterForTileIdx(tile.diceIdx);
+            tile.SetTileText(letterToSet);
             tile.TileEnter();
         }
         usedTileList[usedTileList.Count-1].SetEnterCallback(gameController.EnableInput);
