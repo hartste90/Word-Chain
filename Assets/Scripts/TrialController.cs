@@ -35,11 +35,11 @@ public class TrialController : MonoBehaviour
     }
     public void BeginTrial()
     {
+        questsController.BeginTrial();
         InitializeLetterBoard();
         MoneyController.Instance.OnTrialBegin();
         purseController.Init(gameController.rVController.RequestAd);
         currentWordText.text = "";
-        questsController.BeginTrial();
         trialStartTime = Time.time;
         AnalyticsController.OnBeginTrial();
 
@@ -66,7 +66,21 @@ public class TrialController : MonoBehaviour
         {
             LetterTileController tile = Instantiate<LetterTileController>(tilePrefab, tileGroupParent);
             tile.diceIdx = i;
-            tile.SetTileText(LetterBasket.RollDiceAtIdx(tile.diceIdx));
+            string tileTextSet = LetterBasket.RollDiceAtIdx(tile.diceIdx);
+            List<string> options = LetterBasket.GetDiceOptionsAtIdx(tile.diceIdx);
+            List<string> requiredLetters = questsController.GetRequiredLetters();
+            foreach (string letter in requiredLetters)
+            {
+                if(options.Contains(letter))
+                {
+                    if (UnityEngine.Random.Range(0f, 1f) < .5f)
+                    {
+                        tileTextSet = letter;
+                        break;
+                    }
+                }
+            }
+            tile.SetTileText(tileTextSet);
             tile.pressedCallback = OnTilePressed;
             tile.TileEnter();
             tileList.Add(tile);

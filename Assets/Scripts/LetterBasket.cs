@@ -62,6 +62,11 @@ public class LetterBasket
         return letter;
     }
 
+    public static List<string> GetDiceOptionsAtIdx (int idx)
+    {
+        return boggleDiceList[idx];
+    }
+
     // public static string GrabLetter()
     // {
     //     int idx = Random.Range(0, availableLetters.Count);

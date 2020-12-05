@@ -98,7 +98,8 @@ public class QuestsController : MonoBehaviour
         bool isWordForQuest = false;
         foreach (QuestItem quest in questItemList)
         {
-            isWordForQuest = isWordForQuest || quest.AccountWord(word);
+            bool currentQuestNeedsWord = quest.AccountWord(word);
+            isWordForQuest = isWordForQuest || currentQuestNeedsWord;
         }
         return isWordForQuest;
     }
@@ -224,6 +225,19 @@ public class QuestsController : MonoBehaviour
                 break;
         }
         return qData;
+    }
+
+    public List<string> GetRequiredLetters()
+    {
+        List<string> requiredLetters = new List<string>();
+        foreach(QuestItem quest in questItemList)
+        {
+            if (!quest.IsQuestComplete() && quest.GetQuestType() == QuestType.specificLetter)
+            {
+                requiredLetters.Add(quest.GetRequiredLetter());
+            }
+        }
+        return requiredLetters;
     }
 }
 

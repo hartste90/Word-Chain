@@ -29,23 +29,60 @@ public class QuestItem : MonoBehaviour
     private float goalCelebrationDelay = 1f;
 
 
+    public QuestType GetQuestType()
+    {
+        return questType;
+    }
+
+    public string GetRequiredLetter()
+    {
+        if (GetQuestType() == QuestType.specificLetter && !string.IsNullOrEmpty(requiredLetter))
+        {
+            return requiredLetter;
+        }
+        else
+        {
+            return "";
+        }
+    }
+
+    public int GetCurrentCount()
+    {
+        return currentCount;
+    }
+
+    public int GetQuestTotalWords()
+    {
+        return questTotalWords;
+    }
+
+    public bool IsQuestComplete()
+    {
+        return currentCount >= questTotalWords;
+    }
+
     public virtual bool AccountWord(string word)
     {
+        bool wordWasValid = false;
         switch(questType)
         {
             case QuestType.exactLength:
-                return AccountExactLengthQuest(word);
+                wordWasValid = AccountExactLengthQuest(word);
+                break;
             case QuestType.minimumLength:
-                return AccountMinimumLengthQuest(word);
+                wordWasValid = AccountMinimumLengthQuest(word);
+                break;
             case QuestType.specificLetter:
-                return AccountSpecificLetterQuest(word);
+                wordWasValid = AccountSpecificLetterQuest(word);
+                break;
             case QuestType.vowelWord:
-                return AccountVowelQuest(word);
+                wordWasValid = AccountVowelQuest(word);
+                break;
             case QuestType.twoVowelWord:
-                return AccountTwoVowelQuest(word);
-            default:
-                return false;
+                wordWasValid = AccountTwoVowelQuest(word);
+                break;
         }
+        return wordWasValid;
     }
 
     public void SetTotalWords(int totalSet)
@@ -194,7 +231,7 @@ public class QuestItem : MonoBehaviour
 
     public virtual void MarkProgressMade()
     {
-        if (currentCount == questTotalWords)
+        if (IsQuestComplete())
         {
             PlayQuestCompletedAnimation();
             onQuestCompletedCallback?.Invoke();
