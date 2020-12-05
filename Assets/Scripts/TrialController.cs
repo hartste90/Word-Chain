@@ -73,7 +73,7 @@ public class TrialController : MonoBehaviour
             {
                 if(options.Contains(letter))
                 {
-                    if (UnityEngine.Random.Range(0f, 1f) < .5f)
+                    if (UnityEngine.Random.Range(0f, 1f) < .75f)
                     {
                         tileTextSet = letter;
                         break;
