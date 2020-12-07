@@ -98,8 +98,12 @@ public class QuestsController : MonoBehaviour
         bool isWordForQuest = false;
         foreach (QuestItem quest in questItemList)
         {
-            bool currentQuestNeedsWord = quest.AccountWord(word);
-            isWordForQuest = isWordForQuest || currentQuestNeedsWord;
+            if (!quest.IsQuestComplete())
+            {
+                bool currentQuestNeedsWord = quest.AccountWord(word);
+                isWordForQuest = isWordForQuest || currentQuestNeedsWord;
+            }
+            
         }
         return isWordForQuest;
     }
