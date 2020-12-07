@@ -50,20 +50,20 @@ public class QuestsController : MonoBehaviour
         }
 
         Canvas.ForceUpdateCanvases();
-        float width = Screen.width;
-        // float width = questParent.GetComponent<RectTransform>().sizeDelta.x;
-        Debug.Log("Quest wdith: " + width);
-        float distance = width / questItemList.Count; 
-        float offset;
-        if (questItemList.Count % 2 != 0)
-            offset = questItemList.Count/2 * distance;
-        else
-            offset = (questItemList.Count/2 - .5f ) * distance;
-        for (int i = 0; i < questItemList.Count; i++)
-        {
-            float xPos = (i * distance) - offset;
-            questItemList[i].transform.localPosition = new Vector3 (xPos, 0, 0);
-        }
+        //float width = Screen.width;
+        //// float width = questParent.GetComponent<RectTransform>().sizeDelta.x;
+        //Debug.Log("Quest wdith: " + width);
+        //float distance = width / questItemList.Count; 
+        //float offset;
+        //if (questItemList.Count % 2 != 0)
+        //    offset = questItemList.Count/2 * distance;
+        //else
+        //    offset = (questItemList.Count/2 - .5f ) * distance;
+        //for (int i = 0; i < questItemList.Count; i++)
+        //{
+        //    float xPos = (i * distance) - offset;
+        //    questItemList[i].transform.localPosition = new Vector3 (xPos, 0, 0);
+        //}
     }
 
     private void CreateQuestFromData(QuestData qData)
