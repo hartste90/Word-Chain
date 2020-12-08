@@ -164,8 +164,9 @@ public class QuestItem : MonoBehaviour
         int vowelIdx = ContainsVowel(word);
         if (vowelIdx != -1)
         {
-            string sub = word.Remove(vowelIdx, 1);
-            if (ContainsVowel(sub) == -1)
+            string sub = RemoveFirstVowel(word);
+            if (ContainsOnlyOptionalVowels(sub))
+            //if (ContainsVowel(sub) == -1)
             {
                 currentCount++;
                 MarkProgressMade();
@@ -180,12 +181,12 @@ public class QuestItem : MonoBehaviour
         int vowelIdx = ContainsVowel(word);
         if (vowelIdx != -1)
         {
-            string sub = word.Remove(vowelIdx, 1);
+            string sub = RemoveFirstVowel(word);
             vowelIdx = ContainsVowel(sub);
             if (vowelIdx != -1)
             {
-                sub = sub.Remove(vowelIdx, 1);
-                if (ContainsVowel(sub) == -1)
+                sub = RemoveFirstVowel(sub);
+                if (ContainsOnlyOptionalVowels(sub))
                 {
                     currentCount++;
                     MarkProgressMade();
@@ -218,18 +219,62 @@ public class QuestItem : MonoBehaviour
         {
             return word.IndexOf("U");
         } 
-        else if (word.Contains("Y"))
-        {
-            return word.IndexOf("Y");
-        }
         else if (word.Contains("Qu"))
         {
             return word.IndexOf("Qu");
+        }
+        else if (word.Contains("Y"))
+        {
+            return word.IndexOf("Y");
         }
         else
         {
             return -1;
         }
+    }
+
+    private bool ContainsOnlyOptionalVowels(string word)
+    {
+        if (word.Contains("A"))
+        {
+            return false;
+        }
+        else if (word.Contains("E"))
+        {
+            return false;
+        }
+        else if (word.Contains("I"))
+        {
+            return false;
+        }
+        else if (word.Contains("O"))
+        {
+            return false;
+        }
+        else if (word.Contains("U"))
+        {
+            return false;
+        }
+        else if (word.Contains("Qu"))
+        {
+            return false;
+        }
+        return true;
+    }
+
+    private string RemoveFirstVowel(string word)
+    {
+        //handle special case for Qu being vowel
+        int idx = ContainsVowel(word);
+        if (word[idx] == 'Q')
+        {
+            word = word.Remove(idx, 2);
+        }
+        else
+        {
+            word = word.Remove(idx, 1);
+        }
+        return word;
     }
 
 
