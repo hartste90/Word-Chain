@@ -19,6 +19,7 @@ public class TutorialController : MonoBehaviour
 
     public void StartTutorial()
     {
+        AnalyticsController.OnTutorialStarted();
         currentStep = 0;
         tutorialStepsList[0].Show(AdvanceTutorial);
     }
@@ -39,6 +40,7 @@ public class TutorialController : MonoBehaviour
 
     private void CompleteTutorial()
     {
+        AnalyticsController.OnTutorialCompleted();
         PlayerPrefs.SetInt(AnalyticsKeys.is_tutorial_complete, 1);
     }
 }

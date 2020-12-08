@@ -56,7 +56,7 @@ public class ToasterPanelController : MonoBehaviour
         isAnimating = true;
         panelText.text = messageSet;
 
-        transform.localPosition = Vector3.up * 800;
+        transform.localPosition = Vector3.up * 900;
         Sequence s = DOTween.Sequence();
         s.Append(transform.DOLocalMoveY(500f, .4f).SetEase(Ease.OutBack));
         s.AppendInterval(2f);
@@ -67,7 +67,7 @@ public class ToasterPanelController : MonoBehaviour
 
     private void PlayMessageOutro()
     {
-        transform.DOLocalMoveY(800, .2f).SetEase(Ease.InBack).OnComplete(() =>
+        transform.DOLocalMoveY(900, .2f).SetEase(Ease.InBack).OnComplete(() =>
         {
             messageQueue.RemoveAt(0);
             isAnimating = false;

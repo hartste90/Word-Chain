@@ -222,6 +222,10 @@ public class QuestItem : MonoBehaviour
         {
             return word.IndexOf("Y");
         }
+        else if (word.Contains("Qu"))
+        {
+            return word.IndexOf("Qu");
+        }
         else
         {
             return -1;

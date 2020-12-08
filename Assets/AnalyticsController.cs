@@ -94,6 +94,16 @@ public class AnalyticsController : MonoBehaviour
         GameAnalytics.NewDesignEvent(AnalyticsKeys.word_for_quest, isWordForQuest ? 1 : 0);
     }
 
+    public static void OnTutorialStarted()
+    {
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, AnalyticsKeys.is_tutorial_complete);
+    }
+
+    public static void OnTutorialCompleted()
+    {
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, AnalyticsKeys.is_tutorial_complete);
+    }
+
     private static int GetLevelsBegun()
     {
         return PlayerPrefs.GetInt(AnalyticsKeys.userLevelsBegun, 0);
