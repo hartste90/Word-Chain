@@ -10,6 +10,7 @@ public class PurseController : MonoBehaviour
 {
     public BuyCoinsButtonController buyCoinsButton;
     public TextMeshProUGUI coinsLabel;
+    public Transform dooberTarget;
 
     private Vector3 ogScale;
     private string ctaBumpId = "PurseBumpCTA";
@@ -38,5 +39,10 @@ public class PurseController : MonoBehaviour
         DOTween.Kill(ctaBumpId);
         transform.localScale = ogScale;
         transform.DOPunchScale(Vector3.one * .2f, .2f).SetId(ctaBumpId);
+    }
+
+    public Vector2 GetDooberTarget()
+    {
+        return dooberTarget.position;
     }
 }

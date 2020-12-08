@@ -7575,6 +7575,7 @@ RectTransform:
   - {fileID: 7906641749821255979}
   - {fileID: 7364006745461590321}
   - {fileID: 1369980552780080059}
+  - {fileID: 3222801765274978581}
   m_Father: {fileID: 1966695267019134690}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7605,6 +7606,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buyCoinsButton: {fileID: 6451430144766062877}
   coinsLabel: {fileID: 8888025032436358646}
+  dooberTarget: {fileID: 3222801765274978581}
 --- !u!1 &7831856231576280945
 GameObject:
   m_ObjectHideFlags: 0
@@ -7869,6 +7871,41 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8221678936871208461}
   m_CullTransparentMesh: 0
+--- !u!1 &8327616500606230590
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3222801765274978581}
+  m_Layer: 5
+  m_Name: DooberTarget
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &3222801765274978581
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8327616500606230590}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1968421468833239015}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8582729563296071287
 GameObject:
   m_ObjectHideFlags: 0

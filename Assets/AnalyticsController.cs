@@ -25,6 +25,9 @@ public class AnalyticsKeys
 
     public static string used_coin_letter = "used_coin_letter";
     public static string word_length = "word_length";
+
+    //tutorial
+    public static string is_tutorial_complete = "is_tutorial_complete";
 }
 
 

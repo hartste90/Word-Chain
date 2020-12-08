@@ -45,6 +45,7 @@ public class GameController : MonoBehaviour
     public TrialEndPanel trialEndPanel;
     public RVController rVController;
     private TrialController trialController;
+    public TutorialController tutorialController;
 
     public GameObject inputBlocker;
 
@@ -55,6 +56,7 @@ public class GameController : MonoBehaviour
         InitializeControllers();
         SetControllerCallbacks();
         BeginTrial();
+        InitializeTutorial();
 
 
 
@@ -87,6 +89,11 @@ public class GameController : MonoBehaviour
     private void InitializeDictionary()
     {
         DictionaryController.ReadExternalDictionary();
+    }
+
+    private void InitializeTutorial()
+    {
+        tutorialController.Init();
     }
 
     private void SetControllerCallbacks()
@@ -164,7 +171,7 @@ public class GameController : MonoBehaviour
 
     public static Vector2 GetPurseScreenPosition()
     {
-        return Instance.trialController.purseController.transform.position;
+        return Instance.trialController.purseController.GetDooberTarget();
     }
 
 
