@@ -32,6 +32,10 @@ public class AnalyticsKeys
     //daily rewards
     public static string last_daily_reward_time = "last_daily_reward_time";
     public static string consecutive_days_claimed = "consecutive_days_played";
+    public static string daily_reward_days = "daily_reward_days";
+
+    //settings
+    public static string is_muted = "is_muted";
 }
 
 
@@ -106,6 +110,11 @@ public class AnalyticsController : MonoBehaviour
     public static void OnTutorialCompleted()
     {
         GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, AnalyticsKeys.is_tutorial_complete);
+    }
+
+    public static void OnClaimDailyReward(int amt, int consecutiveDaysClaimed)
+    {
+        GameAnalytics.NewResourceEvent(GAResourceFlowType.Source, "coins", consecutiveDaysClaimed, AnalyticsKeys.daily_reward_days, "");
     }
 
     private static int GetLevelsBegun()

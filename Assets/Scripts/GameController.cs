@@ -49,6 +49,9 @@ public class GameController : MonoBehaviour
     public DailyRewardController dailyRewardController;
     public GameObject inputBlocker;
 
+    public MuteButton muteButton;
+
+
     void Start()
     {
         InitializeSDKs();
@@ -183,7 +186,10 @@ public class GameController : MonoBehaviour
         return Instance.trialController.purseController.GetDooberTarget();
     }
 
-
+    public static void UpdateMuteUI(bool isMuted)
+    {
+        Instance.muteButton.UpdateMuteUI(isMuted);
+    }
 
 }
 

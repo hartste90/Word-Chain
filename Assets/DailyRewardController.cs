@@ -93,6 +93,7 @@ public class DailyRewardController : MonoBehaviour
         int amt = GetCurrentAwardAmount();
         MoneyController.AwardCoins(dailyRewardPanel.GetDooberSource(), amt, amt);
         PlayerPrefs.SetString(AnalyticsKeys.last_daily_reward_time, DateTime.Now.ToString());
+        AnalyticsController.OnClaimDailyReward(amt, consecutiveDaysClaimed);
     }
 
 
