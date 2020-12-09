@@ -328,10 +328,8 @@ public class QuestItem : MonoBehaviour
         seq.Append(transform.DOScale(Vector3.one * 1.3f, .2f));
         float fillAmt = 1f;
         seq.Append(fillImage.DOFillAmount(fillAmt, .2f));
+        seq.AppendCallback(PlayQuestCompleteSound);
         seq.Append(goalProgressText.transform.DOLocalRotate(Vector3.up * 90f, .5f).SetEase(Ease.InSine));
-        // seq.AppendCallback(UpdateText);
-        // seq.AppendCallback(() => goalProgressText.transform.localRotation = Quaternion.Euler(0,-90f,0));
-        // seq.Append(goalProgressText.transform.DOLocalRotate(Vector3.up * 0f, .5f).SetEase(Ease.OutSine));
         seq.Append(questCompleteFillImage.DOFillAmount(1f, .2f));
         seq.Append(goalProgressText.DOFade(0, .1f));
         seq.AppendCallback(() => statusCompleteObj.SetActive(true));
@@ -339,6 +337,12 @@ public class QuestItem : MonoBehaviour
         seq.Append(transform.DOScale(Vector3.one, .2f));
         seq.OnComplete(AwardCoins);
         seq.Play();
+
+    }
+
+    private void PlayQuestCompleteSound()
+    {
+        SoundController.PlayCompleteQuest();
     }
 
     public void AwardCoins()

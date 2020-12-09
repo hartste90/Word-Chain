@@ -117,7 +117,7 @@ public class QuestsController : MonoBehaviour
         }
         else
         {
-            SoundController.PlayCompleteQuest();
+            //SoundController.PlayCompleteQuest();
         }
     }
 
