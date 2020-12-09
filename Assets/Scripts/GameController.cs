@@ -51,6 +51,8 @@ public class GameController : MonoBehaviour
 
     public MuteButton muteButton;
 
+    private GameState gamestate = GameState.Undefined;
+
 
     void Start()
     {
@@ -121,10 +123,13 @@ public class GameController : MonoBehaviour
         trialController.SetGameController(this);
         rVController.SetPowerupsPanel(trialController.GetPowerupsPanel());
         trialController.BeginTrial();
+        gamestate = GameState.InTrial;
+        
     }
 
     public void EndTrial()
     {
+        gamestate = GameState.Undefined;
         Destroy(trialController.gameObject);
         rVController.DestroyCurrentOffer();
         backgroundController.DestroyAllBlocks();
@@ -191,6 +196,16 @@ public class GameController : MonoBehaviour
         Instance.muteButton.UpdateMuteUI(isMuted);
     }
 
+    public static bool IsTutorialComplete()
+    {
+        return Instance.tutorialController.IsTutorialComplete();
+    }
+
+    public static GameState GetGameState()
+    {
+        return Instance.gamestate;
+    }
+
 }
 
 public enum PowerupType
@@ -198,4 +213,10 @@ public enum PowerupType
     recycle = 0,
     shuffle = 1,
     wildcard = 2
+}
+
+public enum GameState
+{
+    Undefined = 0,
+    InTrial = 1
 }

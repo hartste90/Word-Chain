@@ -54,14 +54,17 @@ public class SoundController : MonoBehaviour
     public static void Mute (bool shouldMute)
     {
         Instance.isMuted = shouldMute;
-        Instance.listener.enabled = Instance.isMuted;
+        Instance.musicSource.mute = Instance.isMuted;
+        Instance.effectSource.mute = Instance.isMuted;
         GameController.UpdateMuteUI(Instance.isMuted);
-        PlayerPrefs.SetInt(AnalyticsKeys.is_muted, Instance.isMuted == false ? 0 : 1);
+        int mutedSet = Instance.isMuted == false ? 0 : 1;
+        PlayerPrefs.SetInt(AnalyticsKeys.is_muted, mutedSet);
     }
 
     private void Start()
     {
-        isMuted = PlayerPrefs.GetInt(AnalyticsKeys.is_muted, 1) == 1 ? true : false;
+        int mutedSet = PlayerPrefs.GetInt(AnalyticsKeys.is_muted, 0);
+        isMuted = mutedSet == 1 ? true : false;
         Mute(isMuted);
         Instance.musicSource.Play();
     }

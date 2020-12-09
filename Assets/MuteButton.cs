@@ -8,6 +8,6 @@ public class MuteButton : MonoBehaviour
 
     public void UpdateMuteUI (bool isMuted)
     {
-        muteActiveImage.SetActive(!isMuted);
+        muteActiveImage.SetActive(isMuted);
     }
 }

@@ -43,5 +43,10 @@ public class TutorialController : MonoBehaviour
         AnalyticsController.OnTutorialCompleted();
         PlayerPrefs.SetInt(AnalyticsKeys.is_tutorial_complete, 1);
     }
+
+    public bool IsTutorialComplete()
+    {
+        return PlayerPrefs.GetInt(AnalyticsKeys.is_tutorial_complete, 0) == 0 ? false : true;
+    }
 }
 

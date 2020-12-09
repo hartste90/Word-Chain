@@ -64,7 +64,7 @@ public class RVController : MonoBehaviour, IUnityAdsListener {
 
     public void SurfaceRVOption(CurrencyAmount powerupType)
     {
-        if (Advertisement.IsReady())
+        if (Advertisement.IsReady() && GameController.IsTutorialComplete() && GameController.GetGameState() == GameState.InTrial)
         {
             SetPowerupType(powerupType);
             currentOffer = Instantiate<MovingRVButton>(rvButtonPrefab, rvBubbleParent);
