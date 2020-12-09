@@ -57,5 +57,6 @@ public class TutorialItem : MonoBehaviour
     public void OnAdvanceButtonPressed()
     {
         onAdvanceCallback?.Invoke();
+        SoundController.PlayUITap();
     }
 }

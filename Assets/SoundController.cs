@@ -32,14 +32,15 @@ public class SoundController : MonoBehaviour
     public AudioClip tileTapSound;
     public AudioClip completeWordSound;
     public AudioClip completeQuestSound;
+    public AudioClip completeLevelSound;
+    public AudioClip levelCompleteScreenSound;
+    public AudioClip awardCoinsSound;
     public AudioClip coinDooberInPurseSound;
     public AudioClip usePowerupSound;
     public AudioClip backspaceSound;
     public AudioClip pressUIButtonSound;
     public AudioClip badSubmissionSound;
     public AudioClip tileExplodeSound;
-
-    public AudioClip backgroundMusicSound;
 
     private bool isMuted = false;
     private float volume = 1f;
@@ -65,21 +66,64 @@ public class SoundController : MonoBehaviour
         Instance.musicSource.Play();
     }
 
-    public void PlaySoundEffectImpl()
-    {
-        PlaySoundEffect();
-    }
-
-    public static void PlaySoundEffect()
-    {
-        Debug.Log("Playing sound");
-        //Instance.effectSource.PlayOneShot(Instance.soundEffect);
-    }
-
-    public static void PlayTileTapSound()
+    public static void PlayTileTap()
     {
         Instance.effectSource.PlayOneShot(Instance.tileTapSound);
     }
+
+    public static void PlayCompleteWord()
+    {
+        Instance.effectSource.PlayOneShot(Instance.completeWordSound);
+    }
+    public static void PlayCompleteQuest()
+    {
+        Instance.effectSource.PlayOneShot(Instance.completeQuestSound);
+    }
+
+    public static void PlayCompleteLevel()
+    {
+        Instance.effectSource.PlayOneShot(Instance.completeLevelSound);
+    }
+
+    public static void PlayAwardCoins()
+    {
+        Instance.effectSource.PlayOneShot(Instance.awardCoinsSound);
+    }
+
+    public static void PlayCoinToPurse()
+    {
+        Instance.effectSource.PlayOneShot(Instance.coinDooberInPurseSound);
+    }
+
+    public static void PlayPowerup()
+    {
+        Instance.effectSource.PlayOneShot(Instance.usePowerupSound);
+    }
+
+    public static void PlayBackspace()
+    {
+        Instance.effectSource.PlayOneShot(Instance.backspaceSound);
+    }
+    public static void PlayUITap()
+    {
+        Instance.effectSource.PlayOneShot(Instance.pressUIButtonSound);
+    }
+
+    public static void PlayBadSubmission()
+    {
+        Instance.effectSource.PlayOneShot(Instance.badSubmissionSound);
+    }
+
+    public static void PlayTileExplode()
+    {
+        Instance.effectSource.PlayOneShot(Instance.tileExplodeSound);
+    }
+
+    public static void PlayLevelCompleteScreen()
+    {
+        Instance.effectSource.PlayOneShot(Instance.levelCompleteScreenSound);
+    }
+
 
     private void ToggleMute()
     {

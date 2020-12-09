@@ -48,6 +48,7 @@ public class CoinDooberController : MonoBehaviour
 
     private void OnAnimationComplete()
     {
+        SoundController.PlayCoinToPurse();
         Destroy(gameObject);
         onCompleteCallback?.Invoke(coinAmt);
     }

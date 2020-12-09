@@ -13,6 +13,7 @@ public class BuyCoinsButtonController : MonoBehaviour
 
     public void OnPressed()
     {
+        SoundController.PlayUITap();
         pressedCallback?.Invoke(CurrencyAmount.CoinsSmall, AdOfferSource.purseButton);
     }
 }

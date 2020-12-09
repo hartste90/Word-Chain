@@ -116,6 +116,7 @@ public class TrialController : MonoBehaviour
             tileController.SetTileUsed();
             usedTileList.Add(tileController);
             currentWordText.text += tileController.letterText.text;
+            SoundController.PlayTileTap();
         }
         else if(usedTileList.Count > 0 && usedTileList[usedTileList.Count-1] == tileController)
         {
@@ -136,6 +137,7 @@ public class TrialController : MonoBehaviour
             
             lastTile.RevertUsedTile();
             usedTileList.Remove(lastTile);
+            SoundController.PlayBackspace();
         }
     }
     
@@ -167,12 +169,14 @@ public class TrialController : MonoBehaviour
             }
             gameController.OnSubmitButtonPressed(word);
             Submit(word);
+            SoundController.PlayCompleteWord();
         } 
         else
         {
             //show rejected feedback
             ClearWord();
             RejectUsedTiles();
+            SoundController.PlayBadSubmission();
         }
         
         
@@ -229,6 +233,7 @@ public class TrialController : MonoBehaviour
         foreach(LetterTileController tile in tileList)
         {
             tile.TileExit();
+            SoundController.PlayTileExplode();
         }
     }
 
@@ -257,6 +262,7 @@ public class TrialController : MonoBehaviour
             MoneyController.ChangeMoney(-SHUFFLE_LETTERS_COST);
             ShuffleTiles();
             AnalyticsController.OnUsePowerup(PowerupType.shuffle);
+            SoundController.PlayPowerup();
         }
         else
         {
@@ -304,6 +310,7 @@ public class TrialController : MonoBehaviour
             MoneyController.ChangeMoney(-RECYCLE_LETTERS_COST);
             RecycleBoard();
             AnalyticsController.OnUsePowerup(PowerupType.recycle);
+            SoundController.PlayPowerup();
         }
         else
         {
@@ -361,6 +368,7 @@ public class TrialController : MonoBehaviour
 
     public void HandleAllQuestsCompleted()
     {
+        SoundController.PlayCompleteLevel();
         Invoke(ExitTrial, 5f);
     }
 

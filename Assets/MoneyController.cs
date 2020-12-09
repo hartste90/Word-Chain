@@ -89,6 +89,7 @@ public class MoneyController : MonoBehaviour
             }
             coin.Init(value, screenPosition, Instance.OnCoinDooberHitPurse);
         }
+        SoundController.PlayAwardCoins();
     }
 
     public static Vector2 GetPurseScreenPosition()

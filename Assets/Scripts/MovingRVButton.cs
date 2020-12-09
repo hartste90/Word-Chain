@@ -83,6 +83,7 @@ public class MovingRVButton : MonoBehaviour
     {
         PlayBubbleOutAnimation();
         onPressedCallback?.Invoke(CurrencyAmount.CoinsLarge, AdOfferSource.movingOfferBubble);
+        SoundController.PlayUITap();
     }
 
     private void SetImage(CurrencyAmount powerupType)

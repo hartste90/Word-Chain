@@ -68,6 +68,7 @@ public class WatchRVPanelController : MonoBehaviour
         Hide();
         Time.timeScale = 1f;
         AnalyticsController.OnRejectCoinOffer();
+        SoundController.PlayUITap();
     }
 
     public void OnYesButtonPressed()
@@ -76,6 +77,7 @@ public class WatchRVPanelController : MonoBehaviour
         string myPlacementId = "rewardedVideo";
         GameController.Instance.rVController.SetPowerupType(latestCoinPackageType);
         GameController.Instance.rVController.Show(myPlacementId, source);
+        SoundController.PlayUITap();
 
         Hide();   
     }

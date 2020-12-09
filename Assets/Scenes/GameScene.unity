@@ -12111,16 +12111,18 @@ MonoBehaviour:
   listener: {fileID: 1687258582}
   effectSource: {fileID: 2013086864}
   musicSource: {fileID: 1530166480}
-  tileTapSound: {fileID: 0}
-  completeWordSound: {fileID: 0}
-  completeQuestSound: {fileID: 0}
-  coinDooberInPurseSound: {fileID: 0}
-  usePowerupSound: {fileID: 0}
-  backspaceSound: {fileID: 0}
-  pressUIButtonSound: {fileID: 0}
-  badSubmissionSound: {fileID: 0}
-  tileExplodeSound: {fileID: 0}
-  backgroundMusicSound: {fileID: 0}
+  tileTapSound: {fileID: 8300000, guid: d76255dd07e2846c297de0404a300a17, type: 3}
+  completeWordSound: {fileID: 8300000, guid: 7898f044d711c4e9984dd49a40bb6dcc, type: 3}
+  completeQuestSound: {fileID: 8300000, guid: 5a05961c2d46c440a9c902eddd64007b, type: 3}
+  completeLevelSound: {fileID: 8300000, guid: ce9ebbd1f20c34e1c833ce9bf8663af6, type: 3}
+  awardCoinsSound: {fileID: 8300000, guid: 82b77c3bb5f434ad5a2fae9ea1d7deea, type: 3}
+  coinDooberInPurseSound: {fileID: 8300000, guid: 72f65214fd30f43af92d9b117c5de5d6,
+    type: 3}
+  usePowerupSound: {fileID: 8300000, guid: 5a05961c2d46c440a9c902eddd64007b, type: 3}
+  backspaceSound: {fileID: 8300000, guid: caa42399cb19c4f8ba48979835fa8813, type: 3}
+  pressUIButtonSound: {fileID: 8300000, guid: 7f45e0b942db149918d9f0de5bce348d, type: 3}
+  badSubmissionSound: {fileID: 8300000, guid: afb7edc5561f94902903c08dda2a2a1f, type: 3}
+  tileExplodeSound: {fileID: 8300000, guid: caa42399cb19c4f8ba48979835fa8813, type: 3}
 --- !u!1 &1793757673
 GameObject:
   m_ObjectHideFlags: 0

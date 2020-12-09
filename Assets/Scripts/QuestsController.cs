@@ -115,6 +115,10 @@ public class QuestsController : MonoBehaviour
         {
             HandleAllQuestsCompleted();
         }
+        else
+        {
+            SoundController.PlayCompleteQuest();
+        }
     }
 
     public void HandleAllQuestsCompleted()

@@ -19,12 +19,14 @@ public class TrialEndPanel : MonoBehaviour
     {
         anim.PlayTrialCompleteEnterAnimation();
         gameController.EnableInput();
+        SoundController.PlayLevelCompleteScreen();
     }
 
     public void OnNextLevelButtonPressed()
     {
         anim.HidePanel();
         nextLevelButtonCallback?.Invoke();
-        
+        SoundController.PlayUITap();
+
     }
 }

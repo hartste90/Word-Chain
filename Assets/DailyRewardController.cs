@@ -81,6 +81,7 @@ public class DailyRewardController : MonoBehaviour
         consecutiveDaysClaimed++;
         PlayerPrefs.SetInt(AnalyticsKeys.consecutive_days_claimed, consecutiveDaysClaimed);
         ClaimReward();
+        SoundController.PlayUITap();
     }
 
     public int GetCurrentAwardAmount()
