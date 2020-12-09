@@ -59,9 +59,7 @@ public class DailyRewardController : MonoBehaviour
         bool hasEverHadReward = DateTime.TryParse(PlayerPrefs.GetString(AnalyticsKeys.last_daily_reward_time, DateTime.Now.AddDays(-100).ToString()), out lastRewardTime);
         if (hasEverHadReward)
         {
-            //int lastRewardTimeCompare = lastRewardTime.AddDays(1).CompareTo(now);
-            int lastRewardTimeCompare = lastRewardTime.AddSeconds(20).CompareTo(now);
-
+            int lastRewardTimeCompare = lastRewardTime.AddDays(1).CompareTo(now);
             if (lastRewardTimeCompare <= 0)
             {
                 return true;

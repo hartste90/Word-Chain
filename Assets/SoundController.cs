@@ -61,7 +61,7 @@ public class SoundController : MonoBehaviour
 
     private void Start()
     {
-        isMuted = PlayerPrefs.GetInt(AnalyticsKeys.is_muted, 0) == 1 ? true : false;
+        isMuted = PlayerPrefs.GetInt(AnalyticsKeys.is_muted, 1) == 1 ? true : false;
         Mute(isMuted);
         Instance.musicSource.Play();
     }

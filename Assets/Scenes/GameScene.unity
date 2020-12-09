@@ -255,8 +255,8 @@ MonoBehaviour:
   blendMode: 0
   intensity: 1
   gradientType: 0
-  linearColor1: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  linearColor2: {r: 1, g: 0, b: 0, a: 1}
+  linearColor1: {r: 0.3773585, g: 0.019579923, b: 0.3638574, a: 1}
+  linearColor2: {r: 0.30588236, g: 0.64705884, b: 0.86666673, a: 1}
   cornerColorUpperLeft: {r: 1, g: 0, b: 0, a: 1}
   cornerColorUpperRight: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   cornerColorLowerRight: {r: 0, g: 1, b: 0, a: 1}
@@ -1674,8 +1674,8 @@ MonoBehaviour:
   blendMode: 0
   intensity: 1
   gradientType: 0
-  linearColor1: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  linearColor2: {r: 1, g: 0, b: 0, a: 1}
+  linearColor1: {r: 0.3773585, g: 0.019579923, b: 0.3638574, a: 1}
+  linearColor2: {r: 0.30588236, g: 0.64705884, b: 0.86666673, a: 1}
   cornerColorUpperLeft: {r: 1, g: 0, b: 0, a: 1}
   cornerColorUpperRight: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   cornerColorLowerRight: {r: 0, g: 1, b: 0, a: 1}
@@ -1709,7 +1709,7 @@ MonoBehaviour:
     m_Mode: 0
     m_NumColorKeys: 2
     m_NumAlphaKeys: 2
-  angle: 155
+  angle: 126
 --- !u!114 &219576598
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10963,8 +10963,8 @@ MonoBehaviour:
   blendMode: 0
   intensity: 1
   gradientType: 0
-  linearColor1: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  linearColor2: {r: 1, g: 0, b: 0, a: 1}
+  linearColor1: {r: 0.3773585, g: 0.019579923, b: 0.3638574, a: 1}
+  linearColor2: {r: 0.30588236, g: 0.64705884, b: 0.86666673, a: 1}
   cornerColorUpperLeft: {r: 1, g: 0, b: 0, a: 1}
   cornerColorUpperRight: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   cornerColorLowerRight: {r: 0, g: 1, b: 0, a: 1}
@@ -11732,8 +11732,8 @@ MonoBehaviour:
   blendMode: 0
   intensity: 1
   gradientType: 0
-  linearColor1: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
-  linearColor2: {r: 1, g: 0, b: 0, a: 1}
+  linearColor1: {r: 0.3773585, g: 0.019579923, b: 0.3638574, a: 1}
+  linearColor2: {r: 0.30588236, g: 0.64705884, b: 0.86666673, a: 1}
   cornerColorUpperLeft: {r: 1, g: 0, b: 0, a: 1}
   cornerColorUpperRight: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
   cornerColorLowerRight: {r: 0, g: 1, b: 0, a: 1}
@@ -12115,6 +12115,7 @@ MonoBehaviour:
   completeWordSound: {fileID: 8300000, guid: 7898f044d711c4e9984dd49a40bb6dcc, type: 3}
   completeQuestSound: {fileID: 8300000, guid: 5a05961c2d46c440a9c902eddd64007b, type: 3}
   completeLevelSound: {fileID: 8300000, guid: ce9ebbd1f20c34e1c833ce9bf8663af6, type: 3}
+  levelCompleteScreenSound: {fileID: 0}
   awardCoinsSound: {fileID: 8300000, guid: 82b77c3bb5f434ad5a2fae9ea1d7deea, type: 3}
   coinDooberInPurseSound: {fileID: 8300000, guid: 72f65214fd30f43af92d9b117c5de5d6,
     type: 3}
