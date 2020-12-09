@@ -46,7 +46,7 @@ public class GameController : MonoBehaviour
     public RVController rVController;
     private TrialController trialController;
     public TutorialController tutorialController;
-
+    public DailyRewardController dailyRewardController;
     public GameObject inputBlocker;
 
     void Start()
@@ -57,9 +57,18 @@ public class GameController : MonoBehaviour
         SetControllerCallbacks();
         BeginTrial();
         InitializeTutorial();
+        InitializeDailyReward();
 
+    }
 
+    private void OnApplicationFocus(bool focus)
+    {
+        dailyRewardController.CheckShowReward();
+    }
 
+    private void InitializeDailyReward()
+    {
+        dailyRewardController.Init();
     }
 
     private void InitializeSDKs()

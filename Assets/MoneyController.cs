@@ -5,7 +5,7 @@ using UnityEngine.Events;
 
 public class MoneyController : MonoBehaviour
 {
-
+    const int DOOBER_COUNT_MAX = 50;
     const string PLAYER_MONEY_KEY = "player_money_amt";
     #region singleton
     private static MoneyController instance;
@@ -76,6 +76,7 @@ public class MoneyController : MonoBehaviour
         {
             dooberNum = 1;
         }
+        dooberNum = Mathf.Min(dooberNum, DOOBER_COUNT_MAX);
         int coinValue = coinAmtToAdd / dooberNum;
         int remainder = coinAmtToAdd % dooberNum;
         for (int idx = 0; idx < dooberNum; idx++)

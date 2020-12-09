@@ -28,6 +28,10 @@ public class AnalyticsKeys
 
     //tutorial
     public static string is_tutorial_complete = "is_tutorial_complete";
+
+    //daily rewards
+    public static string last_daily_reward_time = "last_daily_reward_time";
+    public static string consecutive_days_claimed = "consecutive_days_played";
 }
 
 
