@@ -20,6 +20,8 @@ public class TrialController : MonoBehaviour
     public Transform tileGroupParent;
     public PowerupsPanelController powerupsPanelController;
     public QuestsController questsController;
+    public Transform shuffleButton;
+    public Transform recycleButton;
 
     private List<LetterTileController> tileList = new List<LetterTileController>();
     private List<LetterTileController> usedTileList = new List<LetterTileController>();
@@ -259,7 +261,7 @@ public class TrialController : MonoBehaviour
         //if they have enough coins, remove coins, recycle board
         if (MoneyController.GetCurrentMoney() >= SHUFFLE_LETTERS_COST)
         {
-            MoneyController.ChangeMoney(-SHUFFLE_LETTERS_COST);
+            MoneyController.RemoveMoney(SHUFFLE_LETTERS_COST, true, shuffleButton.position);
             ShuffleTiles();
             AnalyticsController.OnUsePowerup(PowerupType.shuffle);
             SoundController.PlayPowerup();
@@ -307,7 +309,7 @@ public class TrialController : MonoBehaviour
         //if they have enough coins, remove coins, recycle board
         if (MoneyController.GetCurrentMoney() >= RECYCLE_LETTERS_COST)
         {
-            MoneyController.ChangeMoney(-RECYCLE_LETTERS_COST);
+            MoneyController.RemoveMoney(RECYCLE_LETTERS_COST, true, recycleButton.position);
             RecycleBoard();
             AnalyticsController.OnUsePowerup(PowerupType.recycle);
             SoundController.PlayPowerup();

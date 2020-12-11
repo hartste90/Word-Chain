@@ -6714,7 +6714,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7130057977440642320
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6731,7 +6731,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -761, y: 0}
+  m_AnchoredPosition: {x: -1136, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4340930840420098952
@@ -7607,6 +7607,8 @@ MonoBehaviour:
   buyCoinsButton: {fileID: 6451430144766062877}
   coinsLabel: {fileID: 8888025032436358646}
   dooberTarget: {fileID: 3222801765274978581}
+  removedCoinsPanel: {fileID: 0}
+  removedCoinsLabel: {fileID: 0}
 --- !u!1 &7831856231576280945
 GameObject:
   m_ObjectHideFlags: 0
@@ -8004,7 +8006,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8598303615296969678}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -8040,6 +8042,8 @@ MonoBehaviour:
   tileGroupParent: {fileID: 1966695266558723882}
   powerupsPanelController: {fileID: 1966695265452295476}
   questsController: {fileID: 3679167892233800875}
+  shuffleButton: {fileID: 1966695266454541681}
+  recycleButton: {fileID: 958714220778632472}
 --- !u!1001 &1966695265352334699
 PrefabInstance:
   m_ObjectHideFlags: 0

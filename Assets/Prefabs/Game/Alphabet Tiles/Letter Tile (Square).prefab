@@ -228,6 +228,7 @@ MonoBehaviour:
   usedColor: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
   diceIdx: 0
   coinImage: {fileID: 5420382229041989658}
+  hasCoinValue: 0
 --- !u!111 &4360436479999846085
 Animation:
   m_ObjectHideFlags: 0
@@ -6322,7 +6323,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7615328598739887818}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -556.8908}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7501649457280998003}

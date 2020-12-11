@@ -28,6 +28,7 @@ public class MoneyController : MonoBehaviour
     #endregion
 
     public CoinDooberController coinDooberPrefab;
+    public RemovedCoinDoober removedCoinDooberPrefab;
     public static UnityAction<int> onMoneyChanged;
     public static UnityAction onCoinAnimationComplete;
 
@@ -46,6 +47,21 @@ public class MoneyController : MonoBehaviour
         currentMoney += moneyToAdd;
         PlayerPrefs.SetInt(PLAYER_MONEY_KEY, currentMoney);
         onMoneyChanged?.Invoke(currentMoney);
+    }
+
+    public static void AddMoney(int moneyToAdd)
+    {
+        ChangeMoney(moneyToAdd);
+    }
+
+    public static void RemoveMoney(int moneyToRemove, bool shouldVisualize = false, Vector2 origin = new Vector2())
+    {
+        ChangeMoney(-moneyToRemove);
+        if (shouldVisualize)
+        {
+            RemovedCoinDoober doober = Instantiate<RemovedCoinDoober>(Instance.removedCoinDooberPrefab, GameController.Instance.trialParent);
+            doober.Initialize(moneyToRemove, origin);
+        }
     }
 
     public static void AwardCoins(List<Vector2> screenPositions, int coinAmtToAdd)
@@ -99,7 +115,7 @@ public class MoneyController : MonoBehaviour
 
     private void OnCoinDooberHitPurse(int coinValue)
     {
-        ChangeMoney(coinValue);
+        AddMoney(coinValue);
         onCoinAnimationComplete?.Invoke();
 
     }

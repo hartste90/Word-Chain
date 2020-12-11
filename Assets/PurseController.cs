@@ -11,6 +11,8 @@ public class PurseController : MonoBehaviour
     public BuyCoinsButtonController buyCoinsButton;
     public TextMeshProUGUI coinsLabel;
     public Transform dooberTarget;
+    public CanvasGroup removedCoinsPanel;
+    public TextMeshProUGUI removedCoinsLabel;
 
     private Vector3 ogScale;
     private string ctaBumpId = "PurseBumpCTA";
