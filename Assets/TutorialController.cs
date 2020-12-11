@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,7 +8,7 @@ public class TutorialController : MonoBehaviour
     public List<TutorialItem> tutorialStepsList;
 
     private int currentStep = 0;
-
+    private DateTime lastAdvancedTutorialTime;
 
     public void Init()
     {
@@ -22,20 +23,34 @@ public class TutorialController : MonoBehaviour
         AnalyticsController.OnTutorialStarted();
         currentStep = 0;
         tutorialStepsList[0].Show(AdvanceTutorial);
+        lastAdvancedTutorialTime = DateTime.Now;
     }
 
     public void AdvanceTutorial()
     {
-        tutorialStepsList[currentStep].Hide();
-        if (tutorialStepsList.Count > currentStep + 1)
+        if (HasSeenCurrentStep())
         {
-            currentStep++;
-            tutorialStepsList[currentStep].Show(AdvanceTutorial);
+            lastAdvancedTutorialTime = DateTime.Now;
+            tutorialStepsList[currentStep].Hide();
+            if (tutorialStepsList.Count > currentStep + 1)
+            {
+                currentStep++;
+                tutorialStepsList[currentStep].Show(AdvanceTutorial);
+            }
+            else
+            {
+                CompleteTutorial();
+            }
         }
-        else
+    }
+
+    private bool HasSeenCurrentStep()
+    {
+        if (DateTime.Now.CompareTo(lastAdvancedTutorialTime.AddSeconds(2)) >= 0)
         {
-            CompleteTutorial();
+            return true;
         }
+        return false;
     }
 
     private void CompleteTutorial()
