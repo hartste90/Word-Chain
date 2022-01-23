@@ -44,8 +44,11 @@ public class RVController : MonoBehaviour, IUnityAdsListener {
         {
             if (Time.time - timeLastSurfacedAdOffer > 60f)
             {
-                timeLastSurfacedAdOffer = Time.time;
-                SurfaceRVOption(CurrencyAmount.CoinsMedium);
+                if (PlayerPrefsPro.GetBool("PREF_SETTINGS_ALLOW_BONUS_RV_BUBBLE"))
+                {
+                    timeLastSurfacedAdOffer = Time.time;
+                    SurfaceRVOption(CurrencyAmount.CoinsMedium);
+                }
             }
         }
     }
