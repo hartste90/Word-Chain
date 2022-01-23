@@ -5,6 +5,8 @@ using UnityEngine.Events;
 using System;
 public class DailyRewardController : MonoBehaviour
 {
+    const int DAYS_BETWEEN_REWARD = 1;
+    const int DAYS_TO_COLLECT_REWARD_BEFORE_RESET = 2;
     private int consecutiveDaysClaimed;
 
     public RewardPanelController dailyRewardPanel;
@@ -34,7 +36,7 @@ public class DailyRewardController : MonoBehaviour
         bool hasEverHadReward = DateTime.TryParse(PlayerPrefs.GetString(AnalyticsKeys.last_daily_reward_time, DateTime.Now.AddDays(-100).ToString()), out lastRewardTime);
         if (hasEverHadReward)
         {
-            int lastClaimTimeCompare = lastRewardTime.AddDays(1).CompareTo(DateTime.Now);
+            int lastClaimTimeCompare = lastRewardTime.AddDays(DAYS_TO_COLLECT_REWARD_BEFORE_RESET).CompareTo(DateTime.Now);
             
             if(lastClaimTimeCompare <= 0)
             {
@@ -46,7 +48,7 @@ public class DailyRewardController : MonoBehaviour
 
     public void CheckShowReward()
     {
-        if (IsRewardReady())
+        if (IsRewardReady() && GameController.GetGameState() == GameState.InTrial)
         {
             Show();
         }
@@ -59,7 +61,7 @@ public class DailyRewardController : MonoBehaviour
         bool hasEverHadReward = DateTime.TryParse(PlayerPrefs.GetString(AnalyticsKeys.last_daily_reward_time, DateTime.Now.AddDays(-100).ToString()), out lastRewardTime);
         if (hasEverHadReward)
         {
-            int lastRewardTimeCompare = lastRewardTime.AddDays(1).CompareTo(now);
+            int lastRewardTimeCompare = lastRewardTime.AddDays(DAYS_BETWEEN_REWARD).CompareTo(now);
             if (lastRewardTimeCompare <= 0)
             {
                 return true;

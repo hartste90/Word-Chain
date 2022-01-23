@@ -60,9 +60,10 @@ public class GameController : MonoBehaviour
         InitializeDictionary();
         InitializeControllers();
         SetControllerCallbacks();
-        BeginTrial();
-        InitializeTutorial();
         InitializeDailyReward();
+        InitializeTutorial();
+        BeginTrial();
+        
 
     }
 
@@ -124,6 +125,7 @@ public class GameController : MonoBehaviour
         rVController.SetPowerupsPanel(trialController.GetPowerupsPanel());
         trialController.BeginTrial();
         gamestate = GameState.InTrial;
+        dailyRewardController.CheckShowReward();
         
     }
 

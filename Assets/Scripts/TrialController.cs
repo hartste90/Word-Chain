@@ -86,14 +86,42 @@ public class TrialController : MonoBehaviour
         {
             if (options.Contains(letter))
             {
-                if (UnityEngine.Random.Range(0f, 1f) < .75f)
+                int letterCount = GetCurrentLetterCount(letter);
+                if (letterCount < 2)
                 {
                     tileTextSet = letter;
-                    break;
+                    return tileTextSet;
                 }
             }
         }
         return tileTextSet;
+    }
+
+    private int GetCurrentLetterCount(string letter)
+    {
+        Dictionary<string, int> letterCounts = GetTileListCounts();
+        if(letterCounts.ContainsKey(letter))
+        {
+            return letterCounts[letter];
+        }
+        return 0;
+    }
+
+    private Dictionary<string, int> GetTileListCounts ()
+    {
+        Dictionary<string, int> dict = new Dictionary<string, int>();
+        foreach(LetterTileController tile in tileList)
+        {
+            if (dict.ContainsKey(tile.letterText.text))
+            {
+                dict[tile.letterText.text] = dict[tile.letterText.text] + 1;
+            }
+            else
+            {
+                dict.Add(tile.letterText.text, 1);
+            }
+        }
+        return dict;
     }
 
     private void HandleTrialEnterComplete()
