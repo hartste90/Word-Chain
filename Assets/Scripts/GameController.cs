@@ -98,7 +98,7 @@ public class GameController : MonoBehaviour
 #endif
 
         bool testMode = Debug.isDebugBuild;
-        Advertisement.Initialize (gameId, testMode);
+        // Advertisement.Initialize (gameId, testMode);
     }
 
     private void InitializeDictionary()

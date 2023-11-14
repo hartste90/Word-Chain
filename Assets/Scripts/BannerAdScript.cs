@@ -12,10 +12,11 @@ public class BannerAdScript : MonoBehaviour {
     }
 
     IEnumerator ShowBannerWhenReady () {
-        while (!Advertisement.IsReady (placementId)) {
-            yield return new WaitForSeconds (0.5f);
-        }
+        // while (!Advertisement.IsReady (placementId)) {
+        //     yield return new WaitForSeconds (0.5f);
+        // }
         Advertisement.Banner.SetPosition (BannerPosition.BOTTOM_CENTER);
         Advertisement.Banner.Show (placementId);
+        yield return null;
     }
 }

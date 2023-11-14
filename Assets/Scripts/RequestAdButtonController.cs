@@ -10,7 +10,7 @@ public class RequestAdButtonController : MonoBehaviour
 
     void Update()
     {
-        button.interactable = Advertisement.IsReady();
+        // button.interactable = Advertisement.IsReady();
     }
 
     public void OnRequestAdButtonPressed()

@@ -11,7 +11,7 @@ public enum AdOfferSource
     fillDefecitForShuffle = 3
 }
 
-public class RVController : MonoBehaviour, IUnityAdsListener { 
+public class RVController : MonoBehaviour { 
 
     public PowerupsPanelController powerupsPanel;
     public WatchRVPanelController watchRVPanelController;
@@ -28,7 +28,7 @@ public class RVController : MonoBehaviour, IUnityAdsListener {
 
     // Initialize the Ads listener and service:
     void Start () {
-        Advertisement.AddListener (this);
+        // Advertisement.AddListener (this);
         lifetimeGameSeconds = PlayerPrefsPro.GetFloat("LIFETIME_GAME_SECONDS", 0f);
     }
 
@@ -62,17 +62,18 @@ public class RVController : MonoBehaviour, IUnityAdsListener {
 
     public bool IsAdReady()
     {
-        return Advertisement.IsReady();
+        return false;
+        // return Advertisement.IsReady();
     }
 
     public void SurfaceRVOption(CurrencyAmount powerupType)
     {
-        if (Advertisement.IsReady() && GameController.IsTutorialComplete() && GameController.GetGameState() == GameState.InTrial)
-        {
-            SetPowerupType(powerupType);
-            currentOffer = Instantiate<MovingRVButton>(rvButtonPrefab, rvBubbleParent);
-            currentOffer.Initialize(rewardPowerupType, RequestAd, HandleRVRequestDestroyed);
-        }
+        // if (Advertisement.IsReady() && GameController.IsTutorialComplete() && GameController.GetGameState() == GameState.InTrial)
+        // {
+        //     SetPowerupType(powerupType);
+        //     currentOffer = Instantiate<MovingRVButton>(rvButtonPrefab, rvBubbleParent);
+        //     currentOffer.Initialize(rewardPowerupType, RequestAd, HandleRVRequestDestroyed);
+        // }
     }
 
     public void SetPowerupType(CurrencyAmount powerupTypeSet)
@@ -150,7 +151,7 @@ public class RVController : MonoBehaviour, IUnityAdsListener {
 
     // When the object that subscribes to ad events is destroyed, remove the listener:
     public void OnDestroy() {
-        Advertisement.RemoveListener(this);
+        // Advertisement.RemoveListener(this);
     }
 
     public void SetPowerupsPanel(PowerupsPanelController powerupsPanelSet)
